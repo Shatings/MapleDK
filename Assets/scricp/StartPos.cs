@@ -30,43 +30,46 @@ public class StartPos : MonoBehaviour
         //    Yongin();
         //}
     }
-    public void Yongin(Item _item)
+    public void Yongin(Solt solt)
     {
+        
         int rate = Random.Range(1, 101);
-        switch (_item.startpos) {
+
+        Debug.Log("ID"+ solt.item.id);
+        switch (solt.item.startpos) {
             case 12:
-                _item.destroyRate = 0.6f;
+                solt.item.destroyRate = 0.6f;
                 break;
             case 13:
-                _item.destroyRate = 1.3f;
+                solt.item.destroyRate = 1.3f;
                 break;
             case 14:
-                _item.destroyRate = 1.4f;
+                solt.item.destroyRate = 1.4f;
                 break;
             case 15:
             case 16:
             case 17:
-                _item.destroyRate = 2.1f;
+                solt.item.destroyRate = 2.1f;
                 break;
             case 18:
             case 19:
-                _item.destroyRate = 2.8f;
+                solt.item.destroyRate = 2.8f;
                 break;
             case 20:
             case 21:
-                _item.destroyRate = 7.0f;
+                solt.item.destroyRate = 7.0f;
                 break;
             case 22:
-                _item.successRate = 3.0f;
-                _item.destroyRate = 19.40f;
+                solt.item.successRate = 3.0f;
+                solt.item.destroyRate = 19.40f;
                 break;
             case 23:
-                _item.successRate = 2.0f;
-                _item.destroyRate = 23.05f;
+                solt.item.successRate = 2.0f;
+                solt.item.destroyRate = 23.05f;
                 break;
             case 24:
-                _item.successRate = 1.0f;
-                _item.destroyRate = 24.07f;
+                solt.item.successRate = 1.0f;
+                solt.item.destroyRate = 24.07f;
                 break;
             case 25:
                 maxstar++;
@@ -79,16 +82,16 @@ public class StartPos : MonoBehaviour
         
       
         
-        if (rate < _item.successRate)
+        if (rate < solt.item.successRate)
         {
             Debug.Log("성공");
             Debug.Log(" "+rate);
             suc++;
-            _item.startpos++;
-            if (_item.startpos != 3&& _item.startpos < 15)
+            solt.item.startpos++;
+            if (solt.item.startpos != 3&& solt.item.startpos < 15)
             {
                 Debug.Log("확률방지");
-                _item.successRate -= 5;
+                solt.item.successRate -= 5;
             }
            
             
@@ -101,11 +104,11 @@ public class StartPos : MonoBehaviour
             fall++;
 
             
-                if (_item.startpos < 15&& _item.startpos > 10 && _item.startpos % 5 != 0)
+                if (solt.item.startpos < 15&& solt.item.startpos > 10 && solt.item.startpos % 5 != 0)
                 {
                     Debug.Log("하락방지");
-                     _item.startpos--;
-                     _item.successRate += 5;
+                     solt.item.startpos--;
+                     solt.item.successRate += 5;
                 }
             
         }
@@ -113,12 +116,12 @@ public class StartPos : MonoBehaviour
         {
             Debug.Log("파괴");
             destory++;
-            _item.startpos = 12;
-            _item.successRate = 45;
+            solt.item.startpos = 12;
+            solt.item.successRate = 45;
         }
         Debug.Log("성공회수:" + suc + "실패회수:" + fall+"파괴회수: "+destory);
-        Debug.Log("스타포스:"+_item.startpos);
-        Debug.Log("성공확률:" + _item.successRate);
+        Debug.Log("스타포스:"+solt.item.startpos);
+        Debug.Log("성공확률:" + solt.item.successRate);
         starpos[count]++;
         starcount++;
     }

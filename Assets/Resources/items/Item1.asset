@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c51bb66fe105a8d4e965b15d2210fbb4, type: 3}
-  m_Name: item3
+  m_Name: Item1
   m_EditorClassIdentifier: Assembly-CSharp::item
-  itemName: TextItem3
-  itemImage: {fileID: 21300000, guid: 0637dcecd71b6e346bad062462e96f13, type: 3}
-  id: 3
-  startpos: 0
-  successRate: 0
-  destroyRate: 0
+  itemName: TextItem
+  itemImage: {fileID: 21300000, guid: e602071040e305548a308739f56786eb, type: 3}
+  id: 1
+  startpos: 14
+  successRate: 35
+  destroyRate: 1.3

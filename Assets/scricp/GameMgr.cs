@@ -12,7 +12,7 @@ public class GameMgr : MonoBehaviour
     private bool Stop=false;
     private Player player;
     public int mGameState;
-    public Item[] items;
+    public Item items;
     
 
 
@@ -20,14 +20,21 @@ public class GameMgr : MonoBehaviour
     {
         ems = Resources.Load("Prefab/Emy") as GameObject;
         ems2 = Resources.Load("Prefab/Emy2") as GameObject;
+        items = Resources.Load("items/Item1") as Item;
+
         //boss = Resources.Load("Prefab/Boss1") as GameObject;
         player = FindObjectOfType<Player>();
         mGameState = 0;
     }
     public Item Radndom()
     {
-        int random = Random.Range(0, 4);
-        return items[random];
+        int random = Random.Range(1, 5);
+        
+        items = Resources.Load("items/Item" + random.ToString())as Item;
+        
+        Debug.Log(" "+items.id);
+        Instantiate(items);
+        return Instantiate(items); 
     }
     // Update is called once per frame
     void Update()
