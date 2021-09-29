@@ -40,6 +40,8 @@ public class Player : MonoBehaviour,ObjInterface
 	public float maxJump;
 
 	public Vector3 oldPos;
+
+	public bool waitMove;
 	
 
 	
@@ -176,6 +178,7 @@ public class Player : MonoBehaviour,ObjInterface
 			
 			jumpState = 0;
 			this.transform.position = new Vector3(transform.position.x, floor1y, transform.position.z);
+			waitMove = false;
 
 		}
 
@@ -235,9 +238,23 @@ public class Player : MonoBehaviour,ObjInterface
 			
 				
 			case 1:
+				transform.position = new Vector3(transform.position.x, transform.position.y + jumppower, transform.position.z);
+				if (endjump >= maxJump)
+				{
+					jumpState++;
+				}
+				break;
 			case 11:
-				
-					transform.position = new Vector3(transform.position.x, transform.position.y + jumppower, transform.position.z);
+
+				if (mOb.righ == "Right")
+				{
+					transform.position = new Vector3(transform.position.x+(jumppower*2), transform.position.y + jumppower, transform.position.z);
+				}
+                else
+                {
+					transform.position = new Vector3(transform.position.x - (jumppower*2), transform.position.y + jumppower, transform.position.z);
+				}
+				waitMove = true;
 				if (endjump >= maxJump)
 				{
 					jumpState++;
@@ -261,7 +278,7 @@ public class Player : MonoBehaviour,ObjInterface
 	{
 	   
 		Debug.Log("FallDown(om)");
-		transform.position = new Vector3(transform.position.x, transform.position.y - jumppower, transform.position.z);
+		transform.position = new Vector3(transform.position.x, transform.position.y - jumppower*2, transform.position.z);
 		
 
 		
@@ -275,6 +292,7 @@ public class Player : MonoBehaviour,ObjInterface
 			FloorChange(fos[0]);
 			
 			transform.position = new Vector3(pos.x, fos[0].getPos().y + fos[0].getTest().y , pos.z);
+			waitMove = false;
 		
 		   
 			
@@ -476,9 +494,11 @@ public class Player : MonoBehaviour,ObjInterface
 
 
 
-		 
-	   
-		Move();
+
+		if (waitMove==false)
+		{
+			Move();
+		}
 	   
 
 
