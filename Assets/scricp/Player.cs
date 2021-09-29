@@ -45,6 +45,10 @@ public class Player : MonoBehaviour,ObjInterface
 	
 	public int jumpState = 0;
 	public GameObject invetory;
+	
+	public int level;
+	public int curexp;
+	public int maxexp;
 
 
 
@@ -99,6 +103,7 @@ public class Player : MonoBehaviour,ObjInterface
 		mOb.HitboxL.SetActive(false);
 		mOb.righ= "Right";
 		invetory = GameObject.Find("Canvas").transform.Find("Scroll View").gameObject;
+		invetory.SetActive(false);
 
 
 		floor1y = -0.42f;
@@ -130,7 +135,7 @@ public class Player : MonoBehaviour,ObjInterface
 			}
 			
         }
-		if (Input.GetKey(KeyCode.DownArrow)&&Input.GetKey(KeyCode.Space) &&ground==true&&fly==0)
+		if (Input.GetKeyDown(KeyCode.DownArrow)&&Input.GetKeyDown(KeyCode.Space)&&ground==true&&fly==0)
 		{  
 			lowerJump();
 			fly++;

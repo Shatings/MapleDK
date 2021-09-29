@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Solt : MonoBehaviour
 {
     [SerializeField] Image image;
-    private Item _item;
+    public Item _item;
     public int itemId;
     
     public Item item

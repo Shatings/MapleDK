@@ -29,12 +29,12 @@ public class GameMgr : MonoBehaviour
     public Item Radndom()
     {
         int random = Random.Range(1, 5);
-        
-        items = Resources.Load("items/Item" + random.ToString())as Item;
-        
+
+        items = Resources.Load("items/Item" + random.ToString()) as Item;
+        var item = Instantiate(items);
         Debug.Log(" "+items.id);
-        Instantiate(items);
-        return Instantiate(items); 
+        
+        return item ;
     }
     // Update is called once per frame
     void Update()
@@ -52,6 +52,9 @@ public class GameMgr : MonoBehaviour
                     player.mOb.maxhp = 5000;
                     player.mOb.attackp = 100;
                     player.jumppower = 0.01f;
+                    player.level = 1;
+                    player.curexp = 0;
+                    player.maxexp = 100;
 
 
                     //enemy.attackxxx = 123;

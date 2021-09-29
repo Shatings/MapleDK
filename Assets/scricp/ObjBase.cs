@@ -24,6 +24,7 @@ public class ObjBase
     public bool Edie = false;
     public int monsternumber;
     public float time;
+    public int plusExp;
     
 
 
@@ -61,12 +62,15 @@ public class ObjBase
             
             if (tarob.curhp <= 0)
             {
-
+            if (tarob.mType == Emy1.gType)
+            {
+                PlusExp(tarob);
+            }
                 Debug.Log(tarob.mType+" Dead");
-
+               
                 GameObject.Destroy(tarob.mMb.gameObject);
-
-               GameObject.Find("Canvas").transform.Find("Scroll View").transform.Find("Viewport").GetComponent<Invetory>().AddItem(GameObject.Find("GameMgr").GetComponent<GameMgr>().Radndom());
+                
+                GameObject.Find("Canvas").transform.Find("Scroll View").transform.Find("Viewport").GetComponent<Invetory>().AddItem(GameObject.Find("GameMgr").GetComponent<GameMgr>().Radndom());
                 Gv.gThis.mOm.Remove(tarob);
 
 
@@ -76,6 +80,43 @@ public class ObjBase
 
 
 
+    }
+    public void PlusExp(ObjBase tarob)
+    {
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        player.curexp += tarob.plusExp;
+        if (player.curexp >= player.maxexp)
+        {
+            player.level += player.curexp / player.maxexp;
+            player.curexp = player.curexp % player.maxexp;
+            PlusLevel(player);
+        }
+       
+    }
+    public void PlusLevel(Player player)
+    {
+        switch (player.level) 
+        {
+            case 1:
+                player.maxexp += 10;
+                break;
+            case 2:
+            case 3:
+            case 4:
+                player.maxexp += 200;
+                break;
+            case 5:
+            case 6:
+            case 7:
+                player.maxexp += 300;
+                break;
+            case 8:
+            case 9:
+            case 10:
+                player.maxexp += 500;
+                break;
+
+        }
     }
     public void HtBox()
     {

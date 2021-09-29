@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: TextItem3
   itemImage: {fileID: 21300000, guid: 0637dcecd71b6e346bad062462e96f13, type: 3}
   id: 3
-  startpos: 12
-  successRate: 45
+  startpos: 0
+  successRate: 95
   destroyRate: 0

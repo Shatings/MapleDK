@@ -37,6 +37,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
         f1jumping = -0.52f;
         oldPos = mOb.getPos();
         transform.position = new Vector3(transform.position.x, oldPos.y, transform.position.z);
+        mOb.plusExp = 50;
         
     }
     private void Update()
