@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Emy1 : MonoBehaviour, ObjInterface
 {
     public static string gType = "Enemy1";
@@ -12,6 +13,14 @@ public class Emy1 : MonoBehaviour, ObjInterface
     public Vector3 oldPos;
 
     private Vector3 vector;
+    private enum em
+    {
+        Find,
+        Move,
+        Idem
+
+    }
+    private em emd=em.Idem;
 
     //public Vector3 getPos()
     //{
@@ -26,6 +35,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
         emy.rangey = 0.5f;
         mOb.mMb = this;
         mOb.mType =Emy1.gType;
+        mOb.ani = GetComponent<Animator>();
         
         mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
         mOb.HitboxR.SetActive(false);
@@ -34,9 +44,9 @@ public class Emy1 : MonoBehaviour, ObjInterface
         mOb.HitboxL.SetActive(false);
         Gv.gThis.mOm.Add(this.mOb);
 
-        f1jumping = -0.52f;
+        f1jumping = 0f;
         oldPos = mOb.getPos();
-        transform.position = new Vector3(transform.position.x, oldPos.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x, f1jumping, transform.position.z);
         mOb.plusExp = 50;
         
     }
@@ -47,79 +57,75 @@ public class Emy1 : MonoBehaviour, ObjInterface
         mOb.attacktime += Time.deltaTime; 
         oldPos = mOb.getPos();
         List<ObjBase> play = Gv.gThis.mOm.FindPlayer();
+        emy.targertOb = (Player)play[0].mMb;
+        Vector3 targetPos = play[0].getPos();
+        Vector3 targetRad = play[0].getRadius();
+
+        
+
+
 
         if (play.Count > 0)
         {
-            emy.targertOb = (Player)play[0].mMb;
-            Vector3 targetPos =play[0].getPos();
-
-
-
-            
-                if (targetPos.x - transform.position.x >= 0)
-                {
-                    mOb.righ = "Right";
-                    transform.position = new Vector3(transform.position.x + Time.deltaTime*emy.movespeed, transform.position.y, 0);
-
-
-                }
-                if (targetPos.x - transform.position.x <=0)
-                {
-                    mOb.righ = "Left";
-                    transform.position = new Vector3(transform.position.x - Time.deltaTime*emy.movespeed, transform.position.y, 0);
-                }
-                if (targetPos.x - transform.position.x ==0)
-                {
+            Move(play,targetPos,targetRad);
                 
-                transform.position =  vector* emy.movespeed * Time.deltaTime;
-                }
 
 
             //if (targetPos.x - transform.position.x < 0.9 && targetPos.x - transform.position.x > -0.9&&
             //        targetPos.y-transform.position.y<0.9&&targetPos.y-transform.position.y>-0.9 && timese > 1.0f)
 
 
-            if (mOb.attacktime > 1.0f)
+            
+        }
+    }
+    private void Move(List<ObjBase>play, Vector3 targetPos,Vector3 targetRad)
+    {
+ 
+        if (Mathf.Abs(targetPos.x - transform.position.x) > targetRad.x)
+        {
+
+            mOb.righ = (targetPos.x > transform.position.x) ? "Right" : "Left";
+            transform.position = new Vector3(transform.position.x + ((targetPos.x > transform.position.x) ? +Time.deltaTime : -Time.deltaTime) * emy.movespeed, transform.position.y, 0);
+
+            mOb.ani.SetBool("Move", true);
+        }
+        else
+        {
+
+            
+            mOb.ani.SetBool("Attack", true);
+           
+        }
+    }
+    private void Attack()
+    {
+        Debug.Log("공격");
+        GameObject hitbox = mOb.GetHitBox();
+        List<ObjBase> fos = mOb.Httest(hitbox);
+        Debug.Log(hitbox.name);
+        Debug.Log("숫자"+fos.Count);
+        for (int i = 0; i < fos.Count; i++)
+        {
+
+            if (fos[i].mType == Player.gType)
             {
-                Debug.Log("공격");
-                GameObject hitbox = mOb.GetHitBox();
-                List<ObjBase> fos = mOb.Httest(hitbox);
+                hitbox.SetActive(true);
 
-                for (int i = 0; i < fos.Count; i++)
-                {
-
-                    if (fos[i].mType == Player.gType)
-                    {
-                        hitbox.SetActive(true);
-                        mOb.Attack1(emy.targertOb.mOb);
-                        mOb.time = 0;
-                        mOb.attacktime = 0;
-                    }
-
-                }
-
+                mOb.Attack1(emy.targertOb.mOb);
+                hitbox.SetActive(false);               
+                
             }
 
-
-
-          
-
-
-
         }
-
-
-
-
+    }
+    public void AttackEnd()
+    {
+        mOb.ani.SetBool("Attack",false);
     }
     private void FixedUpdate()
     {
-        if (mOb.time > 0.2f)
-        {
-            mOb.HitboxR.SetActive(false);
-            mOb.HitboxL.SetActive(false);
-            mOb.time = 0;
-        }
+        
+        
 
     }
     //private void PyAttck(List<ObjBase> fos)

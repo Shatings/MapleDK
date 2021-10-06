@@ -70,7 +70,7 @@ public class Om //<_T1> //ObjMgr
             if (mOs[i].mType != F2Ground.gType)
             { continue; }
             if (mOs[i].getPos().y>y&&mOs[i].getPos().y<oldy&&
-                mOs[i].getPos().x + mOs[i].getTest().x/2>x&&mOs[i].getPos().x-mOs[i].getTest().x / 2<x )
+                mOs[i].getPos().x + mOs[i].getRadius().x/2>x&&mOs[i].getPos().x-mOs[i].getRadius().x / 2<x )
             {
                 Debug.Log(" " + mOs[i].mType);
                 rst.Add(mOs[i]);
@@ -89,7 +89,7 @@ public class Om //<_T1> //ObjMgr
             if (mOs[i].mType !=f1G.gType)
             { continue; }
             if (mOs[i].getPos().y > y && mOs[i].getPos().y < oldy &&
-                mOs[i].getPos().x + mOs[i].getTest().x / 2 > x && mOs[i].getPos().x - mOs[i].getTest().x / 2 < x)
+                mOs[i].getPos().x + mOs[i].getRadius().x / 2 > x && mOs[i].getPos().x - mOs[i].getRadius().x / 2 < x)
             {
                 Debug.LogError(" " + mOs[i].mType);
                 rst.Add(mOs[i]);

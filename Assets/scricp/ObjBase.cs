@@ -25,12 +25,16 @@ public class ObjBase
     public int monsternumber;
     public float time;
     public int plusExp;
+    public bool die;
+    
+    public Animator ani;
     
 
 
     public ObjBase()
     {
         mType = "None";
+        
     }
 
 
@@ -38,7 +42,7 @@ public class ObjBase
     {
         return mMb.transform.position;
     }
-    public Vector3 getTest()
+    public Vector3 getRadius()
     {
         return mMb.transform.localScale;
     }
@@ -59,6 +63,7 @@ public class ObjBase
 
             tarob.curhp -= attackp;
             Debug.Log(tarob.mType + " Hit " + attackp);
+            tarob.ani.SetBool("Hit", true);
             
             if (tarob.curhp <= 0)
             {
@@ -81,6 +86,7 @@ public class ObjBase
 
 
     }
+    
     public void PlusExp(ObjBase tarob)
     {
         Player player = GameObject.Find("Player").GetComponent<Player>();

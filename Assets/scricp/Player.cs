@@ -54,6 +54,7 @@ public class Player : MonoBehaviour,ObjInterface
 
 
 
+
 	//public void OnAttack(MonoBehaviour mb)
 	//{
 	//    if (mb.name.Equals("Emy") || mb.name.Equals("Emy(Clone)"))
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour,ObjInterface
 
 		f2G = FindObjectOfType<F2Ground>();
 		Gv.gThis.mOm.Add(this.mOb);
-		
+		mOb.ani = GetComponent<Animator>();
 
 		
 		//Hitbox 
@@ -108,7 +109,7 @@ public class Player : MonoBehaviour,ObjInterface
 		invetory.SetActive(false);
 
 
-		floor1y = -0.42f;
+		floor1y = -0.2f;
 		transform.position = new Vector3(transform.position.x,floor1y,transform.position.z);
 		f1jump = true;
 		jumpState = 0;
@@ -137,15 +138,7 @@ public class Player : MonoBehaviour,ObjInterface
 			}
 			
         }
-		if (Input.GetKeyDown(KeyCode.DownArrow)&&Input.GetKeyDown(KeyCode.Space)&&ground==true&&fly==0)
-		{  
-			lowerJump();
-			fly++;
-			jumpcount = 1;
-			
-		   
-
-		}
+		
 	  
 		//Debug.Log("" + HitboxR.transform.position);
 
@@ -156,7 +149,7 @@ public class Player : MonoBehaviour,ObjInterface
 
 			for (int i = 0; i < fos.Count; i++)
 			{
-
+				Debug.Log("공격중임");
 				if (fos[i].mType == Emy1.gType || fos[i].mType == Emy2.gType)
 				{
 					mOb.Attack1(fos[i]);
@@ -175,7 +168,7 @@ public class Player : MonoBehaviour,ObjInterface
 		if(mOb.getPos().y <= floor1y )
 		{
 			Debug.Log("mbfo=tr");
-			
+			mOb.ani.SetBool("Jump", false);
 			jumpState = 0;
 			this.transform.position = new Vector3(transform.position.x, floor1y, transform.position.z);
 			waitMove = false;
@@ -183,11 +176,7 @@ public class Player : MonoBehaviour,ObjInterface
 		}
 
 
-		if (wait == true)
-		{
-			Wait();
-		}
-	   
+	
 
 	}
 	void Wait()
@@ -212,8 +201,9 @@ public class Player : MonoBehaviour,ObjInterface
 				Debug.Log("다운다운다운");
 				jumpState = 2;
 				mFloor = null;
-				transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
+				transform.position = new Vector3(transform.position.x, transform.position.y - 0.4f, transform.position.z);
 				oldPos = mOb.getPos();
+				mOb.ani.SetBool("Jump", true);
 			}
 			else if (Input.GetKeyDown(KeyCode.Space))
 			{
@@ -238,10 +228,12 @@ public class Player : MonoBehaviour,ObjInterface
 			
 				
 			case 1:
+				mOb.ani.SetBool("Jump", true);
 				transform.position = new Vector3(transform.position.x, transform.position.y + jumppower, transform.position.z);
 				if (endjump >= maxJump)
 				{
 					jumpState++;
+					
 				}
 				break;
 			case 11:
@@ -249,11 +241,16 @@ public class Player : MonoBehaviour,ObjInterface
 				if (mOb.righ == "Right")
 				{
 					transform.position = new Vector3(transform.position.x+(jumppower*2), transform.position.y + jumppower, transform.position.z);
+					mOb.ani.SetBool("Right", true);
+					
 				}
                 else
                 {
 					transform.position = new Vector3(transform.position.x - (jumppower*2), transform.position.y + jumppower, transform.position.z);
+					mOb.ani.SetBool("Right", false);
+					
 				}
+				mOb.ani.SetBool("Jump", true);
 				waitMove = true;
 				if (endjump >= maxJump)
 				{
@@ -264,6 +261,19 @@ public class Player : MonoBehaviour,ObjInterface
 			case 2:
 			case 12:
 			case 13:
+				mOb.ani.SetBool("Jump", true);
+                if (jumpState == 12)
+                {
+					if (mOb.righ == "Right")
+					{
+						transform.position = new Vector3(transform.position.x + (jumppower * 2), transform.position.y , transform.position.z);
+					}
+                    else
+                    {
+						transform.position = new Vector3(transform.position.x - (jumppower * 2), transform.position.y , transform.position.z);
+					}
+				}
+				
 				JumpDown(om);
 				break;
 			default:
@@ -291,7 +301,7 @@ public class Player : MonoBehaviour,ObjInterface
 			//mFloor = fos[0];
 			FloorChange(fos[0]);
 			
-			transform.position = new Vector3(pos.x, fos[0].getPos().y + fos[0].getTest().y , pos.z);
+			transform.position = new Vector3(pos.x, fos[0].getPos().y + fos[0].getRadius().y , pos.z);
 			waitMove = false;
 		
 		   
@@ -344,6 +354,7 @@ public class Player : MonoBehaviour,ObjInterface
 	}
 	public void FloorChange(ObjBase floor)
 	{
+		mOb.ani.SetBool("Jump", false);
 		mFloor = floor;
 		jumpState = 0;
 		
@@ -488,17 +499,16 @@ public class Player : MonoBehaviour,ObjInterface
 			
 			mOb.HitboxR.SetActive(false);
 			mOb.HitboxL.SetActive(false);
-				mOb.time = 0;
+			mOb.time = 0;
 
 		}
 
 
 
 
-		if (waitMove==false)
-		{
+		
 			Move();
-		}
+		
 	   
 
 
@@ -596,28 +606,43 @@ public class Player : MonoBehaviour,ObjInterface
   
 	public void Move()
 	{
+        if (waitMove == true)
+        {
+			return;
+        }
 		vector = Vector3.zero;
-		if (Input.GetAxisRaw("Horizontal") > 0)
+		if (Input.GetAxisRaw("Horizontal") != 0)
 		{
-			vector = Vector3.right;
-			mOb.righ = "Right";
-			//transform.position = new Vector3(transform.position.x + speed*Time.deltaTime, transform.position.y, transform.position.z);
+			if (Input.GetAxisRaw("Horizontal") > 0)
+			{
+				vector = Vector3.right;
+				mOb.righ = "Right";
+				mOb.ani.SetBool("Right", true);
 
-		}
-		if (Input.GetAxisRaw("Horizontal") < 0)
-		{
-			//transform.position = new Vector3(transform.position.x  -speed * Time.deltaTime, transform.position.y, transform.position.z);
-			vector = Vector3.left; 
-			mOb.righ = "Left";
+				//transform.position = new Vector3(transform.position.x + speed*Time.deltaTime, transform.position.y, transform.position.z);
 
+			}
+			if (Input.GetAxisRaw("Horizontal") < 0)
+			{
+				//transform.position = new Vector3(transform.position.x  -speed * Time.deltaTime, transform.position.y, transform.position.z);
+				vector = Vector3.left;
+				mOb.righ = "Left";
+				mOb.ani.SetBool("Right", false);
+
+			}
+			Debug.Log(" " + mOb.righ);
+			transform.position += vector * speed * Time.deltaTime;
+			mOb.ani.SetBool("Walking", true);
 		}
-		Debug.Log(" " + mOb.righ);
-		transform.position += vector * speed * Time.deltaTime;
+        else
+        {
+			mOb.ani.SetBool("Walking", false);
+		}
 
 		if (jumpState==0&&mFloor != null)
 		{
 			
-			if ((mFloor.getPos().x + mFloor.getTest().x/2) <= transform.position.x ||(mFloor.getPos().x - mFloor.getTest().x/2) >= transform.position.x)
+			if ((mFloor.getPos().x + mFloor.getRadius().x/2) <= transform.position.x ||(mFloor.getPos().x - mFloor.getRadius().x/2) >= transform.position.x)
 			{
 				Debug.Log("ad");
 				jumpState = 2;
@@ -636,7 +661,7 @@ public class Player : MonoBehaviour,ObjInterface
 		canmove = false;
 		jumpcount = 1;
 		collie.isTrigger = true;
-		transform.position=new Vector3(transform.position.x, transform.position.y-0.6f, transform.position.z);
+		transform.position=new Vector3(transform.position.x, transform.position.y-1.0f, transform.position.z);
 	   
 			
 		  
