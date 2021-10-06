@@ -229,7 +229,7 @@ public class Player : MonoBehaviour,ObjInterface
 				
 			case 1:
 				mOb.ani.SetBool("Jump", true);
-				transform.position = new Vector3(transform.position.x, transform.position.y + jumppower, transform.position.z);
+				transform.position = new Vector3(transform.position.x, transform.position.y + jumppower*Time.deltaTime, transform.position.z);
 				if (endjump >= maxJump)
 				{
 					jumpState++;
@@ -240,13 +240,13 @@ public class Player : MonoBehaviour,ObjInterface
 
 				if (mOb.righ == "Right")
 				{
-					transform.position = new Vector3(transform.position.x+(jumppower*2), transform.position.y + jumppower, transform.position.z);
+					transform.position = new Vector3(transform.position.x+(jumppower*2 * Time.deltaTime), transform.position.y + (jumppower * Time.deltaTime),transform.position.z);
 					mOb.ani.SetBool("Right", true);
 					
 				}
                 else
                 {
-					transform.position = new Vector3(transform.position.x - (jumppower*2), transform.position.y + jumppower, transform.position.z);
+					transform.position = new Vector3(transform.position.x - (jumppower*2 * Time.deltaTime), transform.position.y+ (jumppower* Time.deltaTime), transform.position.z);
 					mOb.ani.SetBool("Right", false);
 					
 				}
@@ -266,11 +266,11 @@ public class Player : MonoBehaviour,ObjInterface
                 {
 					if (mOb.righ == "Right")
 					{
-						transform.position = new Vector3(transform.position.x + (jumppower * 2), transform.position.y , transform.position.z);
+						transform.position = new Vector3(transform.position.x + (jumppower*Time.deltaTime * 2), transform.position.y , transform.position.z);
 					}
                     else
                     {
-						transform.position = new Vector3(transform.position.x - (jumppower * 2), transform.position.y , transform.position.z);
+						transform.position = new Vector3(transform.position.x - (jumppower*Time.deltaTime * 2), transform.position.y , transform.position.z);
 					}
 				}
 				
@@ -288,7 +288,7 @@ public class Player : MonoBehaviour,ObjInterface
 	{
 	   
 		Debug.Log("FallDown(om)");
-		transform.position = new Vector3(transform.position.x, transform.position.y - jumppower*2, transform.position.z);
+		transform.position = new Vector3(transform.position.x, transform.position.y - (jumppower*2*Time.deltaTime), transform.position.z);
 		
 
 		
@@ -619,12 +619,12 @@ public class Player : MonoBehaviour,ObjInterface
 				mOb.righ = "Right";
 				mOb.ani.SetBool("Right", true);
 
-				//transform.position = new Vector3(transform.position.x + speed*Time.deltaTime, transform.position.y, transform.position.z);
+				;
 
 			}
 			if (Input.GetAxisRaw("Horizontal") < 0)
 			{
-				//transform.position = new Vector3(transform.position.x  -speed * Time.deltaTime, transform.position.y, transform.position.z);
+				
 				vector = Vector3.left;
 				mOb.righ = "Left";
 				mOb.ani.SetBool("Right", false);

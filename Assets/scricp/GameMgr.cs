@@ -51,7 +51,7 @@ public class GameMgr : MonoBehaviour
                     player.mOb.curhp = 5000;
                     player.mOb.maxhp = 5000;
                     player.mOb.attackp = 100;
-                    player.jumppower = 0.01f;
+                    player.jumppower = 4f;
                     player.level = 1;
                     player.curexp = 0;
                     player.maxexp = 100;

@@ -58,33 +58,25 @@ public class ObjBase
     public void Attack1(ObjBase tarob)
     {
         //throw new System.NotImplementedException();
-        
-           
-
-            tarob.curhp -= attackp;
-            Debug.Log(tarob.mType + " Hit " + attackp);
-            tarob.ani.SetBool("Hit", true);
-            
-            if (tarob.curhp <= 0)
-            {
+      
+        tarob.curhp -= attackp;
+        Debug.Log(tarob.mType + " Hit " + attackp);
+        tarob.ani.SetBool("Hit", true);
+        if (tarob.curhp <= 0)
+        {
             if (tarob.mType == Emy1.gType)
             {
                 PlusExp(tarob);
             }
-                Debug.Log(tarob.mType+" Dead");
+             Debug.Log(tarob.mType+" Dead");
                
-                GameObject.Destroy(tarob.mMb.gameObject);
+             GameObject.Destroy(tarob.mMb.gameObject);
                 
-                GameObject.Find("Canvas").transform.Find("Scroll View").transform.Find("Viewport").GetComponent<Invetory>().AddItem(GameObject.Find("GameMgr").GetComponent<GameMgr>().Radndom());
-                Gv.gThis.mOm.Remove(tarob);
+            GameObject.Find("Canvas").transform.Find("Scroll View").transform.Find("Viewport").GetComponent<Invetory>().AddItem(GameObject.Find("GameMgr").GetComponent<GameMgr>().Radndom());
+            Gv.gThis.mOm.Remove(tarob);
 
 
-            }
-
-        
-
-
-
+        }
     }
     
     public void PlusExp(ObjBase tarob)
