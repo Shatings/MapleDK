@@ -39,8 +39,9 @@ public class GameMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float ranx = Random.Range(-30, 50);
-        float rany = -0.52f;
+        timea += Time.deltaTime;
+        Om om = Gv.gThis.mOm;
+        
         switch (mGameState)
         {
             case  0: //Start
@@ -55,6 +56,7 @@ public class GameMgr : MonoBehaviour
                     player.level = 1;
                     player.curexp = 0;
                     player.maxexp = 100;
+                    
 
 
                     //enemy.attackxxx = 123;
@@ -62,42 +64,32 @@ public class GameMgr : MonoBehaviour
                     ///
                 }
 
-
-
                 mGameState = 1;
                 break;
 
             case 1: //Play
+                LoadOb( ems);
+                mGameState++;
+                break;
+            case 2:
+                if (player.dead >= 4)
+                {
+                    LoadOb(ems2);
+                    mGameState++;
+                }
 
-                
                 break;
         }
-        timea += Time.deltaTime;
-        Om om = Gv.gThis.mOm;
-        Debug.Log("카운트 " + om.mOs.Count);
-        if (om.mOs.Count < 10)
+    }
+    public void LoadOb(GameObject _ems)
+    {
+        float ranx;
+        float rany = -0.52f;
+        for (int i = 0; i <= 4; i++)
         {
-            Debug.Log("1");
-            GameObject obj = Instantiate(ems);
-        
-
+            ranx = Random.Range(-30, 50);
+            GameObject obj = Instantiate(_ems);
             obj.transform.position = new Vector3(ranx, rany, 0);
-
-            //boss
-            //obj.ob.mType = "Boss1";
-
-
         }
-        
-        if (player.dead >= 4 && !Stop)
-        {
-            Debug.Log("성");
-            Stop = true;
-
-        }
-
-
-
-
     }
 }

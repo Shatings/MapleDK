@@ -207,7 +207,7 @@ public class Player : MonoBehaviour,ObjInterface
 			}
 			else if (Input.GetKeyDown(KeyCode.Space))
 			{
-				maxJump = transform.position.y + 2f;
+				maxJump = transform.position.y + 1.5f;
 				Debug.Log("더블점프");
 				if (jumpState == 0)
 				{
@@ -288,7 +288,7 @@ public class Player : MonoBehaviour,ObjInterface
 	{
 	   
 		Debug.Log("FallDown(om)");
-		transform.position = new Vector3(transform.position.x, transform.position.y - (jumppower*2*Time.deltaTime), transform.position.z);
+		transform.position = new Vector3(transform.position.x, transform.position.y - (jumppower*3*Time.deltaTime), transform.position.z);
 		
 
 		

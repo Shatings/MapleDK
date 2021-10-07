@@ -5,13 +5,12 @@ using UnityEngine;
 public class Emy2 : MonoBehaviour, ObjInterface
 {
     public static string gType = "Enemy2";
-    //  private List<ObjBase> play;
-    private bool stop = false;
-    private float timese;
-
-
-
     public ObjBase mOb;
+    public EmyBase emy;
+    public float f1jumping = 0f;
+    public Vector3 oldPos;
+
+
 
 
     //public Vector3 getPos()
@@ -22,8 +21,14 @@ public class Emy2 : MonoBehaviour, ObjInterface
     void Start()
     {
         mOb = new ObjBase();
+        emy = new EmyBase();
+        emy.rangex = 0.5f;
+        emy.rangey = 0.5f;
         mOb.mMb = this;
         mOb.mType = Emy2.gType;
+        mOb.ani = GetComponent<Animator>();
+        mOb.maxhp = 300;
+        mOb.curhp = mOb.maxhp;
 
         mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
         mOb.HitboxR.SetActive(false);
@@ -32,121 +37,90 @@ public class Emy2 : MonoBehaviour, ObjInterface
         mOb.HitboxL.SetActive(false);
         Gv.gThis.mOm.Add(this.mOb);
 
-
+        f1jumping = 0f;
+        oldPos = mOb.getPos();
+        transform.position = new Vector3(transform.position.x, f1jumping, transform.position.z);
+        mOb.plusExp = 100;
 
     }
     private void Update()
     {
-
-        timese += Time.deltaTime;
+        Om om = Gv.gThis.mOm;
+        mOb.time += Time.deltaTime;
         mOb.attacktime += Time.deltaTime;
+        oldPos = mOb.getPos();
         List<ObjBase> play = Gv.gThis.mOm.FindPlayer();
+        emy.targertOb = (Player)play[0].mMb;
+        Vector3 targetPos = play[0].getPos();
+        Vector3 targetRad = play[0].getRadius();
 
 
-        if (play.Count > 0)
+
+
+
+        if (play.Count > 0 && mOb.die == false)
         {
-            Player targertOb = (Player)play[0].mMb;
-            Vector3 targetPos = play[0].getPos();
+            Move(play, targetPos, targetRad);
 
-
-
-
-            if (targetPos.x - transform.position.x > 0)
-            {
-                mOb.righ = "Right";
-                transform.position = new Vector3(transform.position.x + Time.deltaTime * 0.9f, transform.position.y, 0);
-
-
-            }
-            if (targetPos.x - transform.position.x < 0)
-            {
-                mOb.righ = "Left";
-                transform.position = new Vector3(transform.position.x - Time.deltaTime*0.9f, transform.position.y, 0);
-            }
 
 
             //if (targetPos.x - transform.position.x < 0.9 && targetPos.x - transform.position.x > -0.9&&
             //        targetPos.y-transform.position.y<0.9&&targetPos.y-transform.position.y>-0.9 && timese > 1.0f)
 
 
-            if (mOb.attacktime > 1.0f)
+
+        }
+    }
+    private void Move(List<ObjBase> play, Vector3 targetPos, Vector3 targetRad)
+    {
+
+        if (Mathf.Abs(targetPos.x - transform.position.x) > targetRad.x)
+        {
+
+            mOb.righ = (targetPos.x > transform.position.x) ? "Right" : "Left";
+            transform.position = new Vector3(transform.position.x + ((targetPos.x > transform.position.x) ? +Time.deltaTime : -Time.deltaTime) * emy.movespeed, transform.position.y, 0);
+
+            mOb.ani.SetBool("Move", true);
+        }
+        else
+        {
+
+
+            mOb.ani.SetBool("Attack", true);
+
+        }
+    }
+    private void Die()
+    {
+        GameObject.Destroy(this.gameObject);
+    }
+    private void Attack()
+    {
+        Debug.Log("공격");
+        GameObject hitbox = mOb.GetHitBox();
+        List<ObjBase> fos = mOb.Httest(hitbox);
+        Debug.Log(hitbox.name);
+        Debug.Log("숫자" + fos.Count);
+        for (int i = 0; i < fos.Count; i++)
+        {
+
+            if (fos[i].mType == Player.gType)
             {
+                hitbox.SetActive(true);
 
-                if (targetPos.x - this.transform.position.x < 0.05 && targetPos.x - this.transform.position.x > -0.05 &&
-                    targetPos.y - this.transform.position.y < 0.05f && targetPos.y - this.transform.position.y > -0.05)
-                {
-                    if (mOb.righ == "Right")
-                    {
-                        targertOb.transform.position = new Vector3(targertOb.transform.position.x + 1f, targertOb.transform.position.y, targertOb.transform.position.z);
-                    }
-                    else if (mOb.righ == "Left")
-                    {
-                        targertOb.transform.position = new Vector3(targertOb.transform.position.x - 1f, targertOb.transform.position.y, targertOb.transform.position.z);
-                    }
-                    Debug.Log("성");
-                    timese = 0;
-                    mOb.attacktime = 0;
-                    targertOb.wait = true;
-                    Debug.Log(targertOb.mOb);
-                    mOb.Attack1(targertOb.mOb);
-
-
-                }
-                if (mOb.righ == "Left")
-                {
-                    if (targetPos.x - mOb.HitboxL.transform.position.x > -0.5f && targetPos.y - mOb.HitboxL.transform.position.y < 0.5f && targetPos.y - mOb.HitboxL.transform.position.y > -0.5f)
-                    {
-
-                        mOb.HitboxL.SetActive(true);
-
-                        //Debug.Log(" " + mOb.mMb);
-                        mOb.Attack1(targertOb.mOb);
-
-                        timese = 0;
-                        mOb.attacktime = 0;
-                    }
-                }
-                if (mOb.righ == "Right")
-                {
-                    if (targetPos.x - mOb.HitboxR.transform.position.x < 0.5f && targetPos.y - mOb.HitboxR.transform.position.y < 0.5f && targetPos.y - mOb.HitboxR.transform.position.y > -0.5f)
-                    {
-
-                        mOb.HitboxR.SetActive(true);
-
-
-                        mOb.Attack1(targertOb.mOb);
-                        timese = 0;
-                        mOb.attacktime = 0;
-                    }
-                }
-                stop = true;
-
-
+                mOb.Attack1(emy.targertOb.mOb);
+                hitbox.SetActive(false);
 
             }
 
-
-
-
-
-
-
-
-
         }
-
-
-
-
     }
-    private void FixedUpdate()
+    public void AttackEnd()
     {
-        if (timese > 0.2f)
-        {
-            mOb.HitboxR.SetActive(false);
-            mOb.HitboxL.SetActive(false);
-            timese = 0;
-        }
-
+        mOb.ani.SetBool("Attack", false);
+    }
+    private void HitEnd()
+    {
+        mOb.ani.SetBool("Hit", false);
     }
 }

@@ -12,15 +12,8 @@ public class Emy1 : MonoBehaviour, ObjInterface
     public float f1jumping = 0f;
     public Vector3 oldPos;
 
-    private Vector3 vector;
-    private enum em
-    {
-        Find,
-        Move,
-        Idem
-
-    }
-    private em emd=em.Idem;
+   
+    
 
     //public Vector3 getPos()
     //{
@@ -65,7 +58,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
 
 
 
-        if (play.Count > 0)
+        if (play.Count > 0&&mOb.die==false)
         {
             Move(play,targetPos,targetRad);
                 
@@ -96,6 +89,14 @@ public class Emy1 : MonoBehaviour, ObjInterface
             mOb.ani.SetBool("Attack", true);
            
         }
+    }
+    private void Die()
+    {
+        GameObject.Destroy(this.gameObject);
+    }
+    private void HitEnd()
+    {
+        mOb.ani.SetBool("Hit", false);
     }
     private void Attack()
     {

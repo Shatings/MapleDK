@@ -25,7 +25,7 @@ public class ObjBase
     public int monsternumber;
     public float time;
     public int plusExp;
-    public bool die;
+    public bool die=false;
     
     public Animator ani;
     
@@ -64,13 +64,15 @@ public class ObjBase
         tarob.ani.SetBool("Hit", true);
         if (tarob.curhp <= 0)
         {
-            if (tarob.mType == Emy1.gType)
+            if (tarob.mType == Emy1.gType|| tarob.mType == Emy2.gType)
             {
                 PlusExp(tarob);
+                tarob.die = true;
+                tarob.ani.SetBool("Die", true);
             }
              Debug.Log(tarob.mType+" Dead");
                
-             GameObject.Destroy(tarob.mMb.gameObject);
+           
                 
             GameObject.Find("Canvas").transform.Find("Scroll View").transform.Find("Viewport").GetComponent<Invetory>().AddItem(GameObject.Find("GameMgr").GetComponent<GameMgr>().Radndom());
             Gv.gThis.mOm.Remove(tarob);
