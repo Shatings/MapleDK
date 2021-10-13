@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 6739550071905584122}
   - component: {fileID: 6412756997034561124}
   m_Layer: 0
-  m_Name: Emy3
-  m_TagString: Untagged
+  m_Name: Enemy3
+  m_TagString: Emy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

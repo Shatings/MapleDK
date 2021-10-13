@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: d0793e580fcbc8d4aa5ffe052366587b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3198443225408096071
+    second: LevelUp_sp_0
+  - first:
+      213: 5355775016621425592
+    second: LevelUp_sp_1
+  - first:
+      213: 4068277721811124277
+    second: LevelUp_sp_2
+  - first:
+      213: 5720871731551596897
+    second: LevelUp_sp_3
+  - first:
+      213: -4423206450812069230
+    second: LevelUp_sp_4
+  - first:
+      213: 1436398586905488197
+    second: LevelUp_sp_5
+  - first:
+      213: -2301610572547706501
+    second: LevelUp_sp_6
+  - first:
+      213: 8564069222248943241
+    second: LevelUp_sp_7
+  - first:
+      213: 5967121142870270751
+    second: LevelUp_sp_8
+  - first:
+      213: 3738563526733857757
+    second: LevelUp_sp_9
+  - first:
+      213: 3654151999173395028
+    second: LevelUp_sp_10
+  - first:
+      213: -5132993472950230542
+    second: LevelUp_sp_11
+  - first:
+      213: -5058198807657143714
+    second: LevelUp_sp_12
+  - first:
+      213: 8741070040335732263
+    second: LevelUp_sp_13
+  - first:
+      213: 8347458909161792578
+    second: LevelUp_sp_14
+  - first:
+      213: 6393027461243987434
+    second: LevelUp_sp_15
+  - first:
+      213: -4762500690845134173
+    second: LevelUp_sp_16
+  - first:
+      213: -7804260660232357773
+    second: LevelUp_sp_17
+  - first:
+      213: -9118148524780522535
+    second: LevelUp_sp_18
+  - first:
+      213: -5825353683929121848
+    second: LevelUp_sp_19
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 70
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LevelUp_sp_0
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 0
+        width: 468
+        height: 904
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74744bcda27236c20800000000000000
+      internalID: 3198443225408096071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_1
+      rect:
+        serializedVersion: 2
+        x: 2036
+        y: 0
+        width: 439
+        height: 904
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b3c1a26009835a40800000000000000
+      internalID: 5355775016621425592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_2
+      rect:
+        serializedVersion: 2
+        x: 2968
+        y: 0
+        width: 394
+        height: 904
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5300038880d657830800000000000000
+      internalID: 4068277721811124277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_3
+      rect:
+        serializedVersion: 2
+        x: 3916
+        y: 0
+        width: 305
+        height: 904
+      alignment: 9
+      pivot: {x: 0.5, y: 0.38427973}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 161f4b4878e946f40800000000000000
+      internalID: 5720871731551596897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_4
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 0
+        width: 344
+        height: 904
+      alignment: 9
+      pivot: {x: 0.491553, y: 0.31356183}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29a512b0b2d9d92c0800000000000000
+      internalID: -4423206450812069230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_5
+      rect:
+        serializedVersion: 2
+        x: 5699
+        y: 0
+        width: 337
+        height: 904
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54bef5887ec1fe310800000000000000
+      internalID: 1436398586905488197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_6
+      rect:
+        serializedVersion: 2
+        x: 6610
+        y: 2
+        width: 329
+        height: 900
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b71b204f0690f00e0800000000000000
+      internalID: -2301610572547706501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_7
+      rect:
+        serializedVersion: 2
+        x: 7507
+        y: 0
+        width: 358
+        height: 904
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98e0100559fa9d670800000000000000
+      internalID: 8564069222248943241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_8
+      rect:
+        serializedVersion: 2
+        x: 8376
+        y: 0
+        width: 391
+        height: 904
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f13618470197fc250800000000000000
+      internalID: 5967121142870270751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_9
+      rect:
+        serializedVersion: 2
+        x: 9298
+        y: 0
+        width: 391
+        height: 904
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd3043548bb02e330800000000000000
+      internalID: 3738563526733857757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_10
+      rect:
+        serializedVersion: 2
+        x: 10006
+        y: 0
+        width: 751
+        height: 904
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 452830af1e726b230800000000000000
+      internalID: 3654151999173395028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_11
+      rect:
+        serializedVersion: 2
+        x: 10896
+        y: 26
+        width: 753
+        height: 878
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f12762d1a1f3c8b0800000000000000
+      internalID: -5132993472950230542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_12
+      rect:
+        serializedVersion: 2
+        x: 11813
+        y: 0
+        width: 787
+        height: 898
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e52aa42ebfaadc9b0800000000000000
+      internalID: -5058198807657143714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_13
+      rect:
+        serializedVersion: 2
+        x: 12688
+        y: 7
+        width: 836
+        height: 893
+      alignment: 9
+      pivot: {x: 0.5000012, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72e4507b3e48e4970800000000000000
+      internalID: 8741070040335732263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_14
+      rect:
+        serializedVersion: 2
+        x: 13555
+        y: 0
+        width: 908
+        height: 900
+      alignment: 9
+      pivot: {x: 0.5000011, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24422c1b6a128d370800000000000000
+      internalID: 8347458909161792578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_15
+      rect:
+        serializedVersion: 2
+        x: 14461
+        y: 0
+        width: 908
+        height: 904
+      alignment: 9
+      pivot: {x: 0.5053679, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae5e3c2ba9898b850800000000000000
+      internalID: 6393027461243987434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_16
+      rect:
+        serializedVersion: 2
+        x: 15367
+        y: 0
+        width: 907
+        height: 903
+      alignment: 9
+      pivot: {x: 0.49462837, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a29f9fbad238edb0800000000000000
+      internalID: -4762500690845134173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_17
+      rect:
+        serializedVersion: 2
+        x: 16274
+        y: 0
+        width: 900
+        height: 903
+      alignment: 9
+      pivot: {x: 0.50000215, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3787b4c3742b1b390800000000000000
+      internalID: -7804260660232357773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_18
+      rect:
+        serializedVersion: 2
+        x: 17176
+        y: 0
+        width: 934
+        height: 904
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d3743b0a34d57180800000000000000
+      internalID: -9118148524780522535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelUp_sp_19
+      rect:
+        serializedVersion: 2
+        x: 18171
+        y: 0
+        width: 727
+        height: 901
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2878463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cb346240bf282fa0800000000000000
+      internalID: -5825353683929121848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

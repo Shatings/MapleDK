@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: eb38e0eaef467434c9a5b72fe359ca71
+guid: e4f4b970629c3a44a8dde7dbbf25f419
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3759285257057611715
-    second: PlayerStandR_0
+      213: 8916580344345284014
+    second: PlayerAttackR_0
   - first:
-      213: -3860022853610126927
-    second: PlayerStandR_1
+      213: -7905253807655142906
+    second: PlayerAttackR_1
   - first:
-      213: -4225608650485299823
-    second: PlayerStandR_2
+      213: 7063297345907527268
+    second: PlayerAttackR_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -110,64 +110,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerStandR_0
+      name: PlayerAttackR_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 79
-        height: 82
-      alignment: 9
-      pivot: {x: 0.5, y: 0.6}
+        width: 209
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3cf2844160aab2430800000000000000
-      internalID: 3759285257057611715
+      spriteID: ead4ee3c49e0ebb70800000000000000
+      internalID: 8916580344345284014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerStandR_1
+      name: PlayerAttackR_1
       rect:
         serializedVersion: 2
-        x: 79
+        x: 209
         y: 0
-        width: 79
-        height: 82
-      alignment: 9
-      pivot: {x: 0.5, y: 0.6}
+        width: 209
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b1cda97aa17e6ac0800000000000000
-      internalID: -3860022853610126927
+      spriteID: 60a3967bb85ea4290800000000000000
+      internalID: -7905253807655142906
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerStandR_2
+      name: PlayerAttackR_2
       rect:
         serializedVersion: 2
-        x: 158
+        x: 422
         y: 0
-        width: 79
-        height: 82
-      alignment: 9
-      pivot: {x: 0.5, y: 0.6}
+        width: 209
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1958104125f9b55c0800000000000000
-      internalID: -4225608650485299823
+      spriteID: 46e07cd538fd50260800000000000000
+      internalID: 7063297345907527268
       vertices: []
       indices: 
       edges: []

@@ -8,19 +8,26 @@ public class GameMgr : MonoBehaviour
     
     private GameObject ems;
     private GameObject ems2;
+    private GameObject levelUp;
     private float timea;
     private bool Stop=false;
     private Player player;
     public int mGameState;
     public Item items;
+
+    private string reso = "Prefab/";
+    [SerializeField]
+    private Transform resofom;
     
 
 
     void Start()
     {
-        ems = Resources.Load("Prefab/Emy") as GameObject;
-        ems2 = Resources.Load("Prefab/Emy2") as GameObject;
+        ems = Resources.Load(""+reso+Emy1.gType) as GameObject;
+        Debug.Log(reso + Emy1.gType);
+        ems2 = Resources.Load(reso + Emy2.gType) as GameObject;
         items = Resources.Load("items/Item1") as Item;
+        levelUp = Resources.Load("" + reso + "LevelUpEf") as GameObject;
 
         //boss = Resources.Load("Prefab/Boss1") as GameObject;
         player = FindObjectOfType<Player>();
@@ -68,28 +75,36 @@ public class GameMgr : MonoBehaviour
                 break;
 
             case 1: //Play
-                LoadOb( ems);
+                StartCoroutine(LoadOb(ems));
                 mGameState++;
                 break;
             case 2:
                 if (player.dead >= 4)
                 {
-                    LoadOb(ems2);
+                    StartCoroutine(LoadOb(ems2));
                     mGameState++;
                 }
 
                 break;
         }
     }
-    public void LoadOb(GameObject _ems)
+   IEnumerator LoadOb(GameObject _ems)
     {
-        float ranx;
-        float rany = -0.52f;
+        
+        
         for (int i = 0; i <= 4; i++)
         {
-            ranx = Random.Range(-30, 50);
+           
             GameObject obj = Instantiate(_ems);
-            obj.transform.position = new Vector3(ranx, rany, 0);
+            obj.transform.position = new Vector3(resofom.position.x+i,resofom.position.y);
+
+            
         }
+        yield return null;
+    }
+    public void LeveUpEf()
+    {
+        GameObject obj = Instantiate(levelUp);
+        obj.transform.position = player.transform.position;
     }
 }

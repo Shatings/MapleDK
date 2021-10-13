@@ -51,6 +51,8 @@ public class Player : MonoBehaviour,ObjInterface
 	public int level;
 	public int curexp;
 	public int maxexp;
+	public float Damagetime;
+	public bool inv=false;
 
 
 
@@ -92,6 +94,7 @@ public class Player : MonoBehaviour,ObjInterface
 		mOb = new ObjBase();
 		mOb.mMb = this;
 		mOb.mType = Player.gType;
+		mOb.sprite = GetComponent<SpriteRenderer>();
 		wait = false;
 
 		f2G = FindObjectOfType<F2Ground>();
@@ -109,14 +112,53 @@ public class Player : MonoBehaviour,ObjInterface
 		invetory.SetActive(false);
 
 
-		floor1y = -0.2f;
-		transform.position = new Vector3(transform.position.x,floor1y,transform.position.z);
+		mOb.floor1y = -0.2f;
+		transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
 		f1jump = true;
 		jumpState = 0;
 
 
 	}
 
+	private void Checkexp()
+    {
+		if (curexp >= maxexp)
+		{
+			level += curexp / maxexp;
+			curexp = curexp % maxexp;
+			mOb.PlusLevel(this.gameObject.GetComponent<Player>());
+		}
+	}
+	private void Attack()
+    {
+		GameObject hitbox = mOb.GetHitBox();
+		List<ObjBase> fos = mOb.Httest(hitbox);
+
+		for (int i = 0; i < fos.Count; i++)
+		{
+			Debug.Log("공격중임");
+			if (fos[i].mType == Emy1.gType || fos[i].mType == Emy2.gType)
+			{
+				mOb.Attack1(fos[i],this.gameObject);
+			}
+
+		}
+	}
+	private void HitEnd()
+    {
+		mOb.HitEnd(mOb);
+		StartCoroutine(UnBeatTime());
+    }
+	private void Die()
+    {
+		mOb.Die(this.gameObject);
+    }
+	private void AttackEnd()
+	{
+		mOb.AttackEnd(mOb);
+
+	}
+	
 	// Update is called once per frame
 	void Update()
 	{
@@ -124,9 +166,13 @@ public class Player : MonoBehaviour,ObjInterface
 		endjump = this.transform.position.y;
 		Om om = Gv.gThis.mOm;
 		mOb.time += Time.deltaTime;
+		Checkexp();
+        if (inv)
+        {
+			Damagetime += Time.deltaTime;
+        }
 
-
-        if (Input.GetKeyDown(KeyCode.I))
+		if (Input.GetKeyDown(KeyCode.I))
         {
 			if (invetory.activeSelf == true)
 			{
@@ -145,17 +191,8 @@ public class Player : MonoBehaviour,ObjInterface
 		if (Input.GetKeyDown(KeyCode.Q))
 		{   
 			GameObject hitbox = mOb.GetHitBox();
-			List<ObjBase> fos = mOb.Httest(hitbox);
-
-			for (int i = 0; i < fos.Count; i++)
-			{
-				Debug.Log("공격중임");
-				if (fos[i].mType == Emy1.gType || fos[i].mType == Emy2.gType)
-				{
-					mOb.Attack1(fos[i]);
-				}
-
-			}
+			mOb.ani.SetBool("Attack", true);
+			
 			hitbox.SetActive(true);
 			 
 
@@ -165,33 +202,33 @@ public class Player : MonoBehaviour,ObjInterface
 
 		
 		
-		if(mOb.getPos().y <= floor1y )
+		if(mOb.getPos().y <= mOb.floor1y)
 		{
-			Debug.Log("mbfo=tr");
+
 			mOb.ani.SetBool("Jump", false);
 			jumpState = 0;
-			this.transform.position = new Vector3(transform.position.x, floor1y, transform.position.z);
+			this.transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
 			waitMove = false;
 
 		}
-
-
+		
+		
 	
 
 	}
-	void Wait()
-	{
-		waitTime += Time.deltaTime;
-		canmove = false;
-		Debug.Log("기다리기");
-		if (waitTime > 1.0f)
-		{
-			Debug.Log("나가기~");
-			canmove = true;
-			wait = false;
-			waitTime = 0;
-		}
-	}
+	//void Wait()
+	//{
+	//	waitTime += Time.deltaTime;
+	//	canmove = false;
+	//	Debug.Log("기다리기");
+	//	if (waitTime > 1.0f)
+	//	{
+	//		Debug.Log("나가기~");
+	//		canmove = true;
+	//		wait = false;
+	//		waitTime = 0;
+	//	}
+	//}
 	public void JumpProcess(Om om)
 	{
 		if (jumpState==0||jumpState == 1 || jumpState == 2)
@@ -224,9 +261,6 @@ public class Player : MonoBehaviour,ObjInterface
         {
 			case 0:
 				break;
-			
-			
-				
 			case 1:
 				mOb.ani.SetBool("Jump", true);
 				transform.position = new Vector3(transform.position.x, transform.position.y + jumppower*Time.deltaTime, transform.position.z);
@@ -307,9 +341,6 @@ public class Player : MonoBehaviour,ObjInterface
 		   
 			
 	   }
-		
-
-
 		Debug.Log(fos.Count);
 		//for (int i = 0; i < fos. Count; i++)
 		//{ 
@@ -340,14 +371,7 @@ public class Player : MonoBehaviour,ObjInterface
 		//if (mbJumpDown == true)
 		{
 			//Debug.Log("falldown: " + maxJump+" y: "+transform.position.y+" firstJ: "+firstJump);
-		   
 			fallDown(om);
-			
-		  
-		   
-			
-		 
-			
 		}
 	   
 		
@@ -358,126 +382,146 @@ public class Player : MonoBehaviour,ObjInterface
 		mFloor = floor;
 		jumpState = 0;
 		
-		
-		
-		
-		
 
 	}
-	
-	private void OnCollisionEnter2D(Collision2D collision)
+	IEnumerator UnBeatTime()
 	{
 
-		if (collision.gameObject.tag == "Ground")
+		for (int i = 0; i < 40; ++i)
 		{
+			if (i % 2 == 0)
+				mOb.sprite.color = new Color32(255, 255, 255, 90);
+			else
+				mOb.sprite.color = new Color32(255, 255, 255, 180);
 
-			Debug.Log("점프카운트 복구");
-			jumpcount = 2;
-			canmove = true;
-			attacktime = true;
-
-			ground = false;
-			fly = 0;
-		  
-		   
-
-		}
-		if (collision.gameObject.tag == "2fGround")
-		{
-			Debug.Log("2층");
-			canmove = false;
-
-			jumpcount = 0;
-		 
-		  
-
-		}
-		if (collision.gameObject.tag == "On2fGround")
-		{
-			Debug.Log("점프카운트 복구");
-			jumpcount = 2;
-			canmove = true;
-			attacktime = true;
-
-			ground = true;
-			fly = 0;
-		   
-			
-		}
-	}
-  
-	private void OnTriggerExit2D(Collider2D collision)
-	{
-		if (collie.gameObject.tag == "Line")
-		{
-			Debug.LogError("나감");
-
-			rigid.drag = 1;
-		}
-	}
-	private void OnTriggerStay2D(Collider2D collision)
-	{
-		if (collision.gameObject.tag == "Line")
-		{
-		   
-			Debug.Log("줄");
-			if (Input.GetAxisRaw("Vertical")>0)
-			{
-				collie.isTrigger = true;
-				vector = Vector3.zero;
-				
-				vector = Vector3.up;
-				canmove = false;
-				Debug.Log("줄타기위");
-				rigid.drag = 10000;
-				transform.position += vector*speed*Time.deltaTime;
-			}
-			else if(Input.GetAxisRaw("Vertical") < 0){
-
-				collie.isTrigger = true;
-				vector = Vector3.zero;
-				vector = Vector3.down;
-			  
-				canmove = false;
-			   
-				Debug.Log("줄타기밑");
-				rigid.drag = 10000;
-				transform.position += vector * speed * Time.deltaTime;
-
-			}
-			if ((Input.GetAxisRaw("Horizontal") >=0 || Input.GetAxisRaw("Horizontal") <= 0)&&Input.GetKeyDown(KeyCode.Space))
-			{
-				rigid.drag = 1;
-				canmove = true;
-				jumpcount = 2;
-				
-			}
+			yield return new WaitForSeconds(0.05f);
 		}
 
-		if (collision.gameObject.tag == "LineOut")
-		{
-
-			rigid.drag = 1;
-			collie.isTrigger = false;
-
-
-		}
-
-
-	}
-
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
+		//Alpha Effect End 
+		mOb.sprite.color = new Color32(255, 255, 255, 255);
 
 
 		
-		if (collision.gameObject.tag == "GOut")
-		{
-			Debug.Log("나가기~");
-			rigid.drag = 1;
-			collie.isTrigger = true;
-		}
+		yield return null;
+
+
+
+
 	}
+
+	//private void OnCollisionEnter2D(Collision2D collision)
+	//{
+
+	//	if (collision.gameObject.tag == "Ground")
+	//	{
+
+	//		Debug.Log("점프카운트 복구");
+	//		jumpcount = 2;
+	//		canmove = true;
+	//		attacktime = true;
+
+	//		ground = false;
+	//		fly = 0;
+
+
+
+	//	}
+	//	if (collision.gameObject.tag == "2fGround")
+	//	{
+	//		Debug.Log("2층");
+	//		canmove = false;
+
+	//		jumpcount = 0;
+
+
+
+	//	}
+	//	if (collision.gameObject.tag == "On2fGround")
+	//	{
+	//		Debug.Log("점프카운트 복구");
+	//		jumpcount = 2;
+	//		canmove = true;
+	//		attacktime = true;
+
+	//		ground = true;
+	//		fly = 0;
+
+
+	//	}
+	//}
+
+	//private void OnTriggerExit2D(Collider2D collision)
+	//{
+	//	if (collie.gameObject.tag == "Line")
+	//	{
+	//		Debug.LogError("나감");
+
+	//		rigid.drag = 1;
+	//	}
+	//}
+	//private void OnTriggerStay2D(Collider2D collision)
+	//{
+	//	if (collision.gameObject.tag == "Line")
+	//	{
+
+	//		Debug.Log("줄");
+	//		if (Input.GetAxisRaw("Vertical")>0)
+	//		{
+	//			collie.isTrigger = true;
+	//			vector = Vector3.zero;
+
+	//			vector = Vector3.up;
+	//			canmove = false;
+	//			Debug.Log("줄타기위");
+	//			rigid.drag = 10000;
+	//			transform.position += vector*speed*Time.deltaTime;
+	//		}
+	//		else if(Input.GetAxisRaw("Vertical") < 0){
+
+	//			collie.isTrigger = true;
+	//			vector = Vector3.zero;
+	//			vector = Vector3.down;
+
+	//			canmove = false;
+
+	//			Debug.Log("줄타기밑");
+	//			rigid.drag = 10000;
+	//			transform.position += vector * speed * Time.deltaTime;
+
+	//		}
+	//		if ((Input.GetAxisRaw("Horizontal") >=0 || Input.GetAxisRaw("Horizontal") <= 0)&&Input.GetKeyDown(KeyCode.Space))
+	//		{
+	//			rigid.drag = 1;
+	//			canmove = true;
+	//			jumpcount = 2;
+
+	//		}
+	//	}
+
+	//	if (collision.gameObject.tag == "LineOut")
+	//	{
+
+	//		rigid.drag = 1;
+	//		collie.isTrigger = false;
+
+
+	//	}
+
+
+	//}
+
+	//private void OnTriggerEnter2D(Collider2D collision)
+	//{
+
+
+
+	//	if (collision.gameObject.tag == "GOut")
+	//	{
+	//		Debug.Log("나가기~");
+	//		rigid.drag = 1;
+	//		collie.isTrigger = true;
+	//	}
+	//}
 
 
 
@@ -493,7 +537,11 @@ public class Player : MonoBehaviour,ObjInterface
 	//}
 	private void FixedUpdate()
 	{
-	   
+		if (!mOb.ani.GetBool("Hit")&&!mOb.ani.GetBool("Attack"))
+        {
+			Move();
+
+		}
 		if (mOb.time > 0.2f)
 		{
 			
@@ -502,75 +550,72 @@ public class Player : MonoBehaviour,ObjInterface
 			mOb.time = 0;
 
 		}
-
-
-
-
+        if (Damagetime > 3)
+        {
+			StopAllCoroutines();
+			inv = false;
+			Damagetime = 0;
+			
+        }
 		
-			Move();
-		
-	   
-
-
-
 
 	}
-	public void testJump() {
-		if (!jump || jumpcount == 0)
-		{
+	//public void testJump() {
+	//	if (!jump || jumpcount == 0)
+	//	{
 		  
 
-			return ;
+	//		return ;
 
-		}
+	//	}
 		
-		rigid.velocity = Vector2.zero;
-		Vector2 jumpvector = new Vector2(0, jumppower);
+	//	rigid.velocity = Vector2.zero;
+	//	Vector2 jumpvector = new Vector2(0, jumppower);
 
 
 
-		if (jumpcount == 1)
-		{
-			canmove = false;
+	//	if (jumpcount == 1)
+	//	{
+	//		canmove = false;
 			
-			if (Input.GetAxisRaw("Horizontal") >0||Input.GetAxisRaw("Horizontal")==0)
-			{
+	//		if (Input.GetAxisRaw("Horizontal") >0||Input.GetAxisRaw("Horizontal")==0)
+	//		{
 			  
-			   jumpvector = new Vector2(speed, jumppower);
+	//		   jumpvector = new Vector2(speed, jumppower);
 				
-			}
-			if (Input.GetAxisRaw("Horizontal")<0)
-			{
+	//		}
+	//		if (Input.GetAxisRaw("Horizontal")<0)
+	//		{
 			   
-				jumpvector = new Vector2(-speed, jumppower);
+	//			jumpvector = new Vector2(-speed, jumppower);
 			   
-			}
+	//		}
 		   
 			
-			rigid.AddForce(jumpvector, ForceMode2D.Impulse);
+	//		rigid.AddForce(jumpvector, ForceMode2D.Impulse);
 		   
 			
 
-		}
-		if (jumpcount == 2 && mOb.righ == "Right")
-		{
-			Debug.Log("오");
-		 ;
-			attacktime = false;
-			rigid.AddForce(jumpvector, ForceMode2D.Impulse);
+	//	}
+	//	if (jumpcount == 2 && mOb.righ == "Right")
+	//	{
+	//		Debug.Log("오");
+	//	 ;
+	//		attacktime = false;
+	//		rigid.AddForce(jumpvector, ForceMode2D.Impulse);
 			
-		}
-		if(jumpcount==2&&mOb.righ.Equals("Left"))
-		{
-			Debug.Log("왼");
+	//	}
+	//	if(jumpcount==2&&mOb.righ.Equals("Left"))
+	//	{
+	//		Debug.Log("왼");
 		   
 		  
-			attacktime = false;
-			rigid.AddForce(jumpvector, ForceMode2D.Impulse);
-		}
-		jump = false;
-		jumpcount--;
-	}
+	//		attacktime = false;
+	//		rigid.AddForce(jumpvector, ForceMode2D.Impulse);
+	//	}
+	//	jump = false;
+	//	jumpcount--;
+	//}
 	//IEnumerator Jump()
 	//{
 	//    if (!jump || jumpcount == 0)
@@ -602,8 +647,6 @@ public class Player : MonoBehaviour,ObjInterface
 	//    jump = false;
 	//    jumpcount--;
 	//}
-
-  
 	public void Move()
 	{
         if (waitMove == true)
@@ -657,17 +700,10 @@ public class Player : MonoBehaviour,ObjInterface
 
 	public void lowerJump()
 	{
-
 		canmove = false;
 		jumpcount = 1;
 		collie.isTrigger = true;
 		transform.position=new Vector3(transform.position.x, transform.position.y-1.0f, transform.position.z);
-	   
-			
-		  
-		
-		
-		
 	}
 	
 }

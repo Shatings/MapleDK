@@ -28,6 +28,11 @@ public class ObjBase
     public bool die=false;
     
     public Animator ani;
+
+    public float floor1y=-0.2f;
+    public SpriteRenderer sprite;
+    public float attackz = -0.01f;
+    public float adimz = 0;
     
 
 
@@ -55,42 +60,57 @@ public class ObjBase
         return pos - new Vector3(0, 0.5f, 0);
     }
 
-    public void Attack1(ObjBase tarob)
+    public void Attack1(ObjBase tarob,GameObject gameOb)
     {
         //throw new System.NotImplementedException();
-      
+        Vector3 tran = tarob.mMb.gameObject.transform.position;
+        Debug.Log("좌표:"+tarob.mMb.gameObject.transform.position+"타입"+tarob.mType);
         tarob.curhp -= attackp;
         Debug.Log(tarob.mType + " Hit " + attackp);
         tarob.ani.SetBool("Hit", true);
+        gameOb.transform.position=new Vector3(gameOb.transform.position.x,gameOb.transform.position.y,attackz);
+        tarob.mMb.gameObject.transform.position = new Vector3(tran.x, tran.y, adimz);
+        if (tarob.mType == Player.gType)
+        {
+            GameObject.FindObjectOfType<Player>().inv = true;
+        }
         if (tarob.curhp <= 0)
         {
             if (tarob.mType == Emy1.gType|| tarob.mType == Emy2.gType)
             {
                 PlusExp(tarob);
                 tarob.die = true;
-                tarob.ani.SetBool("Die", true);
+                
             }
              Debug.Log(tarob.mType+" Dead");
-               
-           
-                
+             tarob.ani.SetBool("Die", true);
+
+
+
             GameObject.Find("Canvas").transform.Find("Scroll View").transform.Find("Viewport").GetComponent<Invetory>().AddItem(GameObject.Find("GameMgr").GetComponent<GameMgr>().Radndom());
             Gv.gThis.mOm.Remove(tarob);
 
 
         }
     }
-    
+    public void Die(GameObject _gameObject)
+    {
+        GameObject.Destroy(_gameObject);
+    }
+    public void AttackEnd(ObjBase mOb)
+    {
+        mOb.ani.SetBool("Attack", false);
+    }
+    public void HitEnd(ObjBase mOb)
+    {
+        mOb.ani.SetBool("Hit", false);
+    }
+
     public void PlusExp(ObjBase tarob)
     {
         Player player = GameObject.Find("Player").GetComponent<Player>();
         player.curexp += tarob.plusExp;
-        if (player.curexp >= player.maxexp)
-        {
-            player.level += player.curexp / player.maxexp;
-            player.curexp = player.curexp % player.maxexp;
-            PlusLevel(player);
-        }
+        
        
     }
     public void PlusLevel(Player player)
@@ -117,37 +137,9 @@ public class ObjBase
                 break;
 
         }
+        GameObject.Find("GameMgr").GetComponent<GameMgr>().LeveUpEf();
     }
-    public void HtBox()
-    {
-        Om om = Gv.gThis.mOm;
-        List<ObjBase> fos;
-        GameObject hitbox = HitboxL;
-        if (righ == "Right")
-        {
-
-            hitbox = HitboxR;
-
-        }
-        fos = om.findPos(hitbox.transform.position.x, hitbox.transform.position.y, hitbox.transform.localScale.x, hitbox.transform.localScale.y);
-
-
-        for (int i = 0; i < fos.Count; i++)
-        {
-
-            if (fos[i].mType == Emy1.gType || fos[i].mType == Emy2.gType||fos[i].mType==Player.gType)
-            {
-                Attack1(fos[i]);
-               
-
-            }
-
-
-        }
-       
-        
-        
-    }
+    
     public GameObject GetHitBox()
     {
         Om om = Gv.gThis.mOm;

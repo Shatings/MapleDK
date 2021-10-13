@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: eb38e0eaef467434c9a5b72fe359ca71
+guid: e84e29eaa4a17384ca74e2c89049d36f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3759285257057611715
-    second: PlayerStandR_0
+      213: -7857383270884290292
+    second: PlayerDamgeR_0
   - first:
-      213: -3860022853610126927
-    second: PlayerStandR_1
+      213: 3711654791545914960
+    second: PlayerDamgeR_1
   - first:
-      213: -4225608650485299823
-    second: PlayerStandR_2
+      213: -3714310498559700328
+    second: PlayerDamgeR_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerStandR_0
+      name: PlayerDamgeR_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 3
         y: 0
-        width: 79
-        height: 82
+        width: 111
+        height: 76
       alignment: 9
       pivot: {x: 0.5, y: 0.6}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3cf2844160aab2430800000000000000
-      internalID: 3759285257057611715
+      spriteID: c0158da9b87f4f290800000000000000
+      internalID: -7857383270884290292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerStandR_1
+      name: PlayerDamgeR_1
       rect:
         serializedVersion: 2
-        x: 79
+        x: 122
         y: 0
-        width: 79
-        height: 82
+        width: 108
+        height: 77
       alignment: 9
       pivot: {x: 0.5, y: 0.6}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b1cda97aa17e6ac0800000000000000
-      internalID: -3860022853610126927
+      spriteID: 05688f22e52728330800000000000000
+      internalID: 3711654791545914960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerStandR_2
+      name: PlayerDamgeR_2
       rect:
         serializedVersion: 2
-        x: 158
+        x: 240
         y: 0
-        width: 79
-        height: 82
+        width: 107
+        height: 77
       alignment: 9
       pivot: {x: 0.5, y: 0.6}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1958104125f9b55c0800000000000000
-      internalID: -4225608650485299823
+      spriteID: 89258d3e74e147cc0800000000000000
+      internalID: -3714310498559700328
       vertices: []
       indices: 
       edges: []
