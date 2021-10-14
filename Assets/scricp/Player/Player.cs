@@ -9,7 +9,7 @@ public class Player : MonoBehaviour,ObjInterface
 
 	private Vector3 vector;
 	
-	public float speed;
+
 	private bool jump = false;
 	public int jumpcount = 2;
 	public bool canmove = true;
@@ -49,10 +49,11 @@ public class Player : MonoBehaviour,ObjInterface
 	public GameObject invetory;
 	
 	public int level;
-	public int curexp;
-	public int maxexp;
+	public int curexp=1;
+	public int maxexp=100;
 	public float Damagetime;
 	public bool inv=false;
+	public float debufftime;
 
 
 
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour,ObjInterface
 	// Start is called before the first frame update
 	void Start()
 	{
+		maxexp = 100;
 		mOb = new ObjBase();
 		mOb.mMb = this;
 		mOb.mType = Player.gType;
@@ -122,8 +124,10 @@ public class Player : MonoBehaviour,ObjInterface
 
 	private void Checkexp()
     {
+		Debug.Log("max"+maxexp);
 		if (curexp >= maxexp)
 		{
+			
 			level += curexp / maxexp;
 			curexp = curexp % maxexp;
 			mOb.PlusLevel(this.gameObject.GetComponent<Player>());
@@ -166,6 +170,7 @@ public class Player : MonoBehaviour,ObjInterface
 		endjump = this.transform.position.y;
 		Om om = Gv.gThis.mOm;
 		mOb.time += Time.deltaTime;
+
 		Checkexp();
         if (inv)
         {
@@ -387,7 +392,7 @@ public class Player : MonoBehaviour,ObjInterface
 	IEnumerator UnBeatTime()
 	{
 
-		for (int i = 0; i < 40; ++i)
+		for (int i = 0; i < 10; ++i)
 		{
 			if (i % 2 == 0)
 				mOb.sprite.color = new Color32(255, 255, 255, 90);
@@ -537,6 +542,16 @@ public class Player : MonoBehaviour,ObjInterface
 	//}
 	private void FixedUpdate()
 	{
+        if (mOb.ani.GetFloat("Debuff") != 1)
+        {
+			debufftime += Time.deltaTime;
+		}
+        if (debufftime > 5f)
+        {
+			mOb.speed *= 2;
+			mOb.ani.SetFloat("Debuff", 1);
+			debufftime = 0;
+		}
 		if (!mOb.ani.GetBool("Hit")&&!mOb.ani.GetBool("Attack"))
         {
 			Move();
@@ -550,11 +565,13 @@ public class Player : MonoBehaviour,ObjInterface
 			mOb.time = 0;
 
 		}
-        if (Damagetime > 3)
+        if (Damagetime > 1)
         {
 			StopAllCoroutines();
+			mOb.sprite.color = new Color32(255, 255, 255, 255);
 			inv = false;
 			Damagetime = 0;
+			
 			
         }
 		
@@ -674,7 +691,7 @@ public class Player : MonoBehaviour,ObjInterface
 
 			}
 			Debug.Log(" " + mOb.righ);
-			transform.position += vector * speed * Time.deltaTime;
+			transform.position += vector * mOb.speed * Time.deltaTime;
 			mOb.ani.SetBool("Walking", true);
 		}
         else

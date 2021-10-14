@@ -19,7 +19,7 @@ public class Om //<_T1> //ObjMgr
     {
         mOs.Add(obj);
         valuePairs.Add(j, obj);
-        Debug.LogWarning(" " + valuePairs);
+       
         j++;
     }
     //Sub/Remove
@@ -29,7 +29,7 @@ public class Om //<_T1> //ObjMgr
         j--;
         valuePairs.Remove(j);
 
-        Debug.LogWarning(" " + valuePairs);
+        
     }
     public void Clear()
     {

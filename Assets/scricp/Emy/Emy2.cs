@@ -50,7 +50,7 @@ public class Emy2 : MonoBehaviour, ObjInterface
 
         if (play.Count > 0 && mOb.die == false)
         {
-            emy.Move(play, emy.targetPos, emy.targetRad,gameObject.transform,mOb);
+            emy.Move(play, emy.targetPos, emy.targetRad, gameObject.transform, mOb);
         }
     }
     

@@ -20,6 +20,7 @@ public class ObjBase
     public int maxhp = 100;
     public int curhp = 100;
     public int attackp = 50;
+    public float speed = 5f;
     public float attacktime;
     public bool Edie = false;
     public int monsternumber;
@@ -33,6 +34,9 @@ public class ObjBase
     public SpriteRenderer sprite;
     public float attackz = -0.01f;
     public float adimz = 0;
+    public float basicspeed= 5f;
+    
+    
     
 
 
@@ -64,11 +68,13 @@ public class ObjBase
     {
         //throw new System.NotImplementedException();
         Vector3 tran = tarob.mMb.gameObject.transform.position;
-        Debug.Log("좌표:"+tarob.mMb.gameObject.transform.position+"타입"+tarob.mType);
+       
         tarob.curhp -= attackp;
-        Debug.Log(tarob.mType + " Hit " + attackp);
+      
         tarob.ani.SetBool("Hit", true);
         gameOb.transform.position=new Vector3(gameOb.transform.position.x,gameOb.transform.position.y,attackz);
+        
+        
         tarob.mMb.gameObject.transform.position = new Vector3(tran.x, tran.y, adimz);
         if (tarob.mType == Player.gType)
         {
@@ -80,7 +86,8 @@ public class ObjBase
             {
                 PlusExp(tarob);
                 tarob.die = true;
-                
+                GameObject.FindObjectOfType<Player>().dead++;
+
             }
              Debug.Log(tarob.mType+" Dead");
              tarob.ani.SetBool("Die", true);
