@@ -70,6 +70,7 @@ public class ObjBase
         Vector3 tran = tarob.mMb.gameObject.transform.position;
        
         tarob.curhp -= attackp;
+        Debug.Log(" " + tarob.mType);
       
         tarob.ani.SetBool("Hit", true);
         gameOb.transform.position=new Vector3(gameOb.transform.position.x,gameOb.transform.position.y,attackz);
@@ -82,7 +83,7 @@ public class ObjBase
         }
         if (tarob.curhp <= 0)
         {
-            if (tarob.mType == Emy1.gType|| tarob.mType == Emy2.gType)
+            if (tarob.mType == Emy1.gType|| tarob.mType == Emy2.gType&&tarob.mType==Emy3.gType)
             {
                 PlusExp(tarob);
                 tarob.die = true;

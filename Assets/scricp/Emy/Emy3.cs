@@ -16,12 +16,13 @@ public class Emy3 : MonoBehaviour
     {
         mOb = new ObjBase();
         emy = new EmyBase();
+        mOb.speed *= 2;
         emy.rangex = 0.5f;
         emy.rangey = 0.5f;
         mOb.mMb = this;
         mOb.mType = Emy3.gType;
         mOb.ani = GetComponent<Animator>();
-        mOb.maxhp = 500;
+        mOb.maxhp = 200;
         mOb.curhp = mOb.maxhp;
 
         mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
@@ -34,7 +35,7 @@ public class Emy3 : MonoBehaviour
 
         emy.oldPos = mOb.getPos();
         transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
-        mOb.plusExp = 100;
+        mOb.plusExp = 300;
 
     }
     private void Update()

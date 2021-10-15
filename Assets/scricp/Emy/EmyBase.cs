@@ -31,7 +31,7 @@ public class EmyBase //: //ObjBase
     public void Move(List<ObjBase> play, Vector3 targetPos, Vector3 targetRad,Transform oldpos,ObjBase mOb)
     {
         AttackCheck(mOb, oldpos);
-        if (Mathf.Abs(targetPos.x - oldPos.x) > targetRad.x&&!mOb.ani.GetBool("Attack"))
+        if (Mathf.Abs(targetPos.x - oldPos.x) > targetRad.x)
         {
 
             mOb.righ = (targetPos.x > oldpos.position.x) ? "Right" : "Left";
@@ -63,7 +63,7 @@ public class EmyBase //: //ObjBase
                 {
                     if (mOb.mType == Emy3.gType)
                     {
-                        Debug.Log("해치웠나");
+
                         fos[i].ani.SetFloat("Debuff", lowspeed);
                         fos[i].speed = fos[i].basicspeed/2;
                     }

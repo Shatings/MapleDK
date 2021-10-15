@@ -89,18 +89,20 @@ public class GameMgr : MonoBehaviour
                         switch (i)
                         {
                             case 0:
-                                maxemy = 10;
+                                maxemy = 1;
                                 LoadOb(ems[i], maxemy);
                                 break;
                             case 1:
-                               maxemy = 5;
+                               maxemy = 1;
                                LoadOb(ems[i], maxemy);
                                 break;
                             case 2:
-                            case 3:
                                 maxemy = 1;
                                 LoadOb(ems[i], maxemy);
                                 Debug.Log("아직 미구현");
+                                break;
+                            case 3:
+                                
                                 break;
                             default:
                                 Debug.Log("엄준식엄준식 신나는노래");
@@ -129,17 +131,20 @@ public class GameMgr : MonoBehaviour
     }
    private void LoadOb(GameObject _ems,int maxemy)
     {
-        
-        
-        for (int i = 0; i < maxemy; i++)
+        int emyLe=(int)GameObject.FindGameObjectsWithTag("Emy").Length;
+        if (emyLe < 100)
         {
-           
-            GameObject obj = Instantiate(_ems);
-            obj.transform.position = new Vector3(resofomL.position.x+i, resofomL.position.y);
-            GameObject obj2 = Instantiate(_ems);
-            obj2.transform.position = new Vector3(resofomR.position.x + i, resofomR.position.y);
+
+            for (int i = 0; i < maxemy; i++)
+            {
+
+                GameObject obj = Instantiate(_ems);
+                obj.transform.position = new Vector3(resofomL.position.x + i, resofomL.position.y);
+                GameObject obj2 = Instantiate(_ems);
+                obj2.transform.position = new Vector3(resofomR.position.x + i, resofomR.position.y);
 
 
+            }
         }
       
     }

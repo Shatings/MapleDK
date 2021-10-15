@@ -141,7 +141,7 @@ public class Player : MonoBehaviour,ObjInterface
 		for (int i = 0; i < fos.Count; i++)
 		{
 			Debug.Log("공격중임");
-			if (fos[i].mType == Emy1.gType || fos[i].mType == Emy2.gType)
+			if (fos[i].mType == Emy1.gType || fos[i].mType == Emy2.gType|| fos[i].mType == Emy3.gType)
 			{
 				mOb.Attack1(fos[i],this.gameObject);
 			}
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour,ObjInterface
 	private void HitEnd()
     {
 		mOb.HitEnd(mOb);
-		StartCoroutine(UnBeatTime());
+		
     }
 	private void Die()
     {
@@ -552,6 +552,10 @@ public class Player : MonoBehaviour,ObjInterface
 			mOb.ani.SetFloat("Debuff", 1);
 			debufftime = 0;
 		}
+        if (mOb.ani.GetBool("Hit"))
+        {
+			StartCoroutine(UnBeatTime());
+        }
 		if (!mOb.ani.GetBool("Hit")&&!mOb.ani.GetBool("Attack"))
         {
 			Move();
