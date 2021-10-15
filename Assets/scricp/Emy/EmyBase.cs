@@ -31,20 +31,45 @@ public class EmyBase //: //ObjBase
     public void Move(List<ObjBase> play, Vector3 targetPos, Vector3 targetRad,Transform oldpos,ObjBase mOb)
     {
         AttackCheck(mOb, oldpos);
-        if (Mathf.Abs(targetPos.x - oldPos.x) > targetRad.x)
+        Debug.Log(mOb.mType);
+        switch (mOb.mType)
         {
+           
+            case "Enemy3":
+                if (Mathf.Abs(targetPos.x - oldPos.x) >= targetRad.x)
+                {
 
-            mOb.righ = (targetPos.x > oldpos.position.x) ? "Right" : "Left";
-            oldpos.position = new Vector3(oldpos.position.x + ((targetPos.x > oldpos.position.x) ? +Time.deltaTime : -Time.deltaTime) * mOb.speed, oldpos.position.y, 0);
+                    mOb.righ = (targetPos.x > oldpos.position.x) ? "Right" : "Left";
+                    oldpos.position = new Vector3(oldpos.position.x + ((targetPos.x > oldpos.position.x) ? +Time.deltaTime : -Time.deltaTime) * mOb.speed, oldpos.position.y, 0);
 
-            mOb.ani.SetBool("Move", true);
+                    mOb.ani.SetBool("Move", true);
+                }
+                else
+                {
+
+                    mOb.ani.SetBool("Move", false);
+
+                }
+                break;
+            case "Enemy1":
+            case "Enemy2":
+                if (Mathf.Abs(targetPos.x - oldPos.x) > targetRad.x&&!mOb.ani.GetBool("Attack"))
+                {
+
+                    mOb.righ = (targetPos.x > oldpos.position.x) ? "Right" : "Left";
+                    oldpos.position = new Vector3(oldpos.position.x + ((targetPos.x > oldpos.position.x) ? +Time.deltaTime : -Time.deltaTime) * mOb.speed, oldpos.position.y, 0);
+
+                    mOb.ani.SetBool("Move", true);
+                }
+                else
+                {
+
+                    mOb.ani.SetBool("Move", false);
+
+                }
+                break;
         }
-        else
-        {
-
-            mOb.ani.SetBool("Move", false);
-
-        }
+        
 
     }
     public void Attack(ObjBase mOb,GameObject gameObject)

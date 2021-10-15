@@ -532,8 +532,8 @@ MonoBehaviour:
   - 0
   - 0
   checkretime:
-  - 1e+9
-  - 1e+11
+  - 8
+  - 10
   - 13
   - 20
   lastretime:

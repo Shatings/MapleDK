@@ -24,6 +24,7 @@ public class Emy2 : MonoBehaviour, ObjInterface
         mOb.ani = GetComponent<Animator>();
         mOb.maxhp = 300;
         mOb.curhp = mOb.maxhp;
+        mOb.speed = 2.0f;
 
         mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
         mOb.HitboxR.SetActive(false);

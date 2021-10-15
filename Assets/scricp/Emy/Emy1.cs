@@ -19,6 +19,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
         emy = new EmyBase();
         emy.rangex = 0.5f;
         emy.rangey = 0.5f;
+        mOb.speed = 4f;
         mOb.mMb = this;
         mOb.mType =Emy1.gType;
         mOb.ani = GetComponent<Animator>();
