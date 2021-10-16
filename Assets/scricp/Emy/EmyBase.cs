@@ -28,6 +28,10 @@ public class EmyBase //: //ObjBase
             }
         }
     }
+    public List<ObjBase> get()
+    {
+        return Gv.gThis.mOm.FindPlayer();
+    }
     public void Move(List<ObjBase> play, Vector3 targetPos, Vector3 targetRad,Transform oldpos,ObjBase mOb)
     {
         AttackCheck(mOb, oldpos);
@@ -36,6 +40,7 @@ public class EmyBase //: //ObjBase
         {
            
             case "Enemy3":
+            case "Enemy4":
                 if (Mathf.Abs(targetPos.x - oldPos.x) >= targetRad.x)
                 {
 

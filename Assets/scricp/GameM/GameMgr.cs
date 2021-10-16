@@ -99,10 +99,12 @@ public class GameMgr : MonoBehaviour
                             case 2:
                                 maxemy = 1;
                                 LoadOb(ems[i], maxemy);
-                                Debug.Log("아직 미구현");
+                               
                                 break;
                             case 3:
-                                
+                                maxemy = 1;
+                                LoadOb(ems[i], maxemy);
+
                                 break;
                             default:
                                 Debug.Log("엄준식엄준식 신나는노래");

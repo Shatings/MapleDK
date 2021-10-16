@@ -275,7 +275,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8300493858896006535, guid: a1db92e50c9b33f4ca0fc40c82d34c74, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a1db92e50c9b33f4ca0fc40c82d34c74, type: 3}
 --- !u!1 &303646858
 GameObject:
@@ -532,15 +533,15 @@ MonoBehaviour:
   - 0
   - 0
   checkretime:
-  - 8
   - 10
-  - 13
-  - 20
+  - 12
+  - 14
+  - 16
   lastretime:
-  - 2
   - 5
   - 5
-  - 15
+  - 5
+  - 5
 --- !u!4 &646883215
 Transform:
   m_ObjectHideFlags: 0

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Emy3 : MonoBehaviour, ObjInterface
+public class Emy4 : MonoBehaviour, ObjInterface
 {
-    public static string gType = "Enemy3";
+    public static string gType = "Enemy4";
+    //  private List<ObjBase> play;
     public ObjBase mOb;
     public EmyBase emy;
-
     //public Vector3 getPos()
     //{
     //    return this.transform.position;
@@ -16,28 +16,29 @@ public class Emy3 : MonoBehaviour, ObjInterface
     {
         mOb = new ObjBase();
         emy = new EmyBase();
-        mOb.speed *= 2;
         emy.rangex = 0.5f;
         emy.rangey = 0.5f;
+        mOb.speed = 4f;
+        mOb.curhp = 1000;
+        mOb.maxhp = 1000;
         mOb.mMb = this;
-        mOb.mType = Emy3.gType;
+        mOb.mType = Emy4.gType;
         mOb.ani = GetComponent<Animator>();
-        mOb.maxhp = 200;
-        mOb.curhp = mOb.maxhp;
 
         mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
         mOb.HitboxR.SetActive(false);
         mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
-
         mOb.HitboxL.SetActive(false);
         Gv.gThis.mOm.Add(this.mOb);
 
 
         emy.oldPos = mOb.getPos();
-        transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
+        transform.position = new Vector3(transform.position.x, mOb.floor1y+2, transform.position.z);
         mOb.plusExp = 300;
 
     }
+
+    // Update is called once per frame
     private void Update()
     {
         Om om = Gv.gThis.mOm;
@@ -48,6 +49,10 @@ public class Emy3 : MonoBehaviour, ObjInterface
         emy.targertOb = (Player)play[0].mMb;
         emy.targetPos = play[0].getPos();
         emy.targetRad = play[0].getRadius();
+
+
+
+
 
         if (play.Count > 0 && mOb.die == false)
         {

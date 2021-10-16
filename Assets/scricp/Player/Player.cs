@@ -141,7 +141,7 @@ public class Player : MonoBehaviour,ObjInterface
 		for (int i = 0; i < fos.Count; i++)
 		{
 			Debug.Log("공격중임");
-			if (fos[i].mType == Emy1.gType || fos[i].mType == Emy2.gType|| fos[i].mType == Emy3.gType)
+			if (fos[i].mType == Emy1.gType || fos[i].mType == Emy2.gType|| fos[i].mType == Emy3.gType||fos[i].mType==Emy4.gType)
 			{
 				mOb.Attack1(fos[i],this.gameObject);
 			}

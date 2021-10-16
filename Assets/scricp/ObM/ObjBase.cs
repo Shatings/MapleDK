@@ -83,11 +83,11 @@ public class ObjBase
         }
         if (tarob.curhp <= 0)
         {
-            if (tarob.mType == Emy1.gType|| tarob.mType == Emy2.gType&&tarob.mType==Emy3.gType)
+            if (tarob.mType == Emy1.gType|| tarob.mType == Emy2.gType&&tarob.mType==Emy3.gType||tarob.mType == Emy4.gType)
             {
                 PlusExp(tarob);
                 tarob.die = true;
-                GameObject.FindObjectOfType<Player>().dead++;
+                Object.FindObjectOfType<Player>().dead++;
 
             }
              Debug.Log(tarob.mType+" Dead");

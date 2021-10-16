@@ -43,18 +43,18 @@ public class Emy1 : MonoBehaviour, ObjInterface
         mOb.time += Time.deltaTime;
         mOb.attacktime += Time.deltaTime; 
         emy.oldPos = mOb.getPos();
-        List<ObjBase> play = Gv.gThis.mOm.FindPlayer();
-        emy.targertOb = (Player)play[0].mMb;
-        emy.targetPos = play[0].getPos();
-        emy.targetRad = play[0].getRadius();
+        
+        emy.targertOb = (Player)emy.get()[0].mMb;
+        emy.targetPos = emy.get()[0].getPos();
+        emy.targetRad = emy.get()[0].getRadius();
 
         
 
 
 
-        if (play.Count > 0&&mOb.die==false)
+        if (emy.get().Count > 0&&mOb.die==false)
         {
-            emy.Move(play, emy.targetPos, emy.targetRad, gameObject.transform, mOb);
+            emy.Move(emy.get(), emy.targetPos, emy.targetRad, gameObject.transform, mOb);
         }
     }
 
