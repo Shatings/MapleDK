@@ -97,6 +97,12 @@ public class EmyBase //: //ObjBase
                         fos[i].ani.SetFloat("Debuff", lowspeed);
                         fos[i].speed = fos[i].basicspeed/2;
                     }
+                    if (mOb.mType == Emy4.gType&&fos[i].mMb.GetComponent<Player>().jumpState!=0)
+                    {
+                       
+                        mOb.attackp = 400;
+                    }
+                    Debug.Log("공격력"+mOb.attackp);
                     hitbox.SetActive(true);
 
                     mOb.Attack1(targertOb.mOb,gameObject);

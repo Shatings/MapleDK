@@ -533,10 +533,10 @@ MonoBehaviour:
   - 0
   - 0
   checkretime:
-  - 10
-  - 12
-  - 14
-  - 16
+  - 11111111
+  - 11111111
+  - 11111111
+  - 5
   lastretime:
   - 5
   - 5

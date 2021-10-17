@@ -72,6 +72,7 @@ public class Emy4 : MonoBehaviour, ObjInterface
     public void AttackEnd()
     {
         mOb.AttackEnd(mOb);
+        mOb.attackp = 100;
 
     }
     private void HitEnd()

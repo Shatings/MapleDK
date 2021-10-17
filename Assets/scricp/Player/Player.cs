@@ -8,28 +8,13 @@ public class Player : MonoBehaviour,ObjInterface
 	public ObjBase mOb;
 
 	private Vector3 vector;
-	
 
-	private bool jump = false;
-	public int jumpcount = 2;
-	public bool canmove = true;
-	private bool attacktime = true;
-	public int attackturn;
 	public float floor1y = 0f;
 	public bool f1jump = false;
    
-  
-	public Rigidbody2D rigid;
-	
-	
-
-	public Collider2D collie;
 	public int dead = 0;
 
 	public bool wait = false;
-	private bool ground = false;
-	private int  fly = 0;
-	private float waitTime = 0;
 
 	public F2Ground f2G;
 	public float jumppower = 0.04f;
@@ -54,6 +39,8 @@ public class Player : MonoBehaviour,ObjInterface
 	public float Damagetime;
 	public bool inv=false;
 	public float debufftime;
+	[SerializeField]
+	public ObjBase mFloor = null;
 
 
 
@@ -109,7 +96,7 @@ public class Player : MonoBehaviour,ObjInterface
 		mOb.HitboxR.SetActive(false);
 		mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
 		mOb.HitboxL.SetActive(false);
-		mOb.righ= "Right";
+		mOb.righ= "Left";
 		invetory = GameObject.Find("Canvas").transform.Find("Scroll View").gameObject;
 		invetory.SetActive(false);
 
@@ -166,6 +153,7 @@ public class Player : MonoBehaviour,ObjInterface
 	// Update is called once per frame
 	void Update()
 	{
+		Debug.Log("mf:" + mFloor);
 		oldPos = mOb.getPos();
 		endjump = this.transform.position.y;
 		Om om = Gv.gThis.mOm;
@@ -204,7 +192,12 @@ public class Player : MonoBehaviour,ObjInterface
 		}
 		
 		JumpProcess(om);
-
+        if (mFloor != null&&!inv)
+        {
+			mOb.ani.SetBool("Hit", true);
+			mOb.curhp -= 100;
+			inv = true;
+        }
 		
 		
 		if(mOb.getPos().y <= mOb.floor1y)
@@ -221,19 +214,7 @@ public class Player : MonoBehaviour,ObjInterface
 	
 
 	}
-	//void Wait()
-	//{
-	//	waitTime += Time.deltaTime;
-	//	canmove = false;
-	//	Debug.Log("기다리기");
-	//	if (waitTime > 1.0f)
-	//	{
-	//		Debug.Log("나가기~");
-	//		canmove = true;
-	//		wait = false;
-	//		waitTime = 0;
-	//	}
-	//}
+
 	public void JumpProcess(Om om)
 	{
 		if (jumpState==0||jumpState == 1 || jumpState == 2)
@@ -322,7 +303,7 @@ public class Player : MonoBehaviour,ObjInterface
         }
 
 	}
-	public ObjBase mFloor = null;
+	
 	public void fallDown(Om om)
 	{
 	   
@@ -347,37 +328,17 @@ public class Player : MonoBehaviour,ObjInterface
 			
 	   }
 		Debug.Log(fos.Count);
-		//for (int i = 0; i < fos. Count; i++)
-		//{ 
-		//    Debug.Log("성이길바람");
-		   
-
-		//    if(
-		//     transform.position.x - f2G.transform.position.x < f2G.w / 2 &&
-		//        transform.position.x - f2G.transform.position.x > -f2G.w / 2)
-		//    {
-
-		//        transform.position = new Vector3(transform.position.x, f2G.transform.position.y + f2G.h / 2, transform.position.z);
-		//        Debug.Log("성공");
-		//        f2jump = true;
-
-		//    }
-		//    else
-		//    {
-		//        Debug.Log("망");
-		//        f2jump = false;
-		//    }
-		//}
+		
 		
 
 	}
 	public void JumpDown(Om om)
 	{
-		//if (mbJumpDown == true)
-		{
-			//Debug.Log("falldown: " + maxJump+" y: "+transform.position.y+" firstJ: "+firstJump);
-			fallDown(om);
-		}
+		
+		
+			
+		fallDown(om);
+		
 	   
 		
 	}
@@ -414,132 +375,7 @@ public class Player : MonoBehaviour,ObjInterface
 
 	}
 
-	//private void OnCollisionEnter2D(Collision2D collision)
-	//{
-
-	//	if (collision.gameObject.tag == "Ground")
-	//	{
-
-	//		Debug.Log("점프카운트 복구");
-	//		jumpcount = 2;
-	//		canmove = true;
-	//		attacktime = true;
-
-	//		ground = false;
-	//		fly = 0;
-
-
-
-	//	}
-	//	if (collision.gameObject.tag == "2fGround")
-	//	{
-	//		Debug.Log("2층");
-	//		canmove = false;
-
-	//		jumpcount = 0;
-
-
-
-	//	}
-	//	if (collision.gameObject.tag == "On2fGround")
-	//	{
-	//		Debug.Log("점프카운트 복구");
-	//		jumpcount = 2;
-	//		canmove = true;
-	//		attacktime = true;
-
-	//		ground = true;
-	//		fly = 0;
-
-
-	//	}
-	//}
-
-	//private void OnTriggerExit2D(Collider2D collision)
-	//{
-	//	if (collie.gameObject.tag == "Line")
-	//	{
-	//		Debug.LogError("나감");
-
-	//		rigid.drag = 1;
-	//	}
-	//}
-	//private void OnTriggerStay2D(Collider2D collision)
-	//{
-	//	if (collision.gameObject.tag == "Line")
-	//	{
-
-	//		Debug.Log("줄");
-	//		if (Input.GetAxisRaw("Vertical")>0)
-	//		{
-	//			collie.isTrigger = true;
-	//			vector = Vector3.zero;
-
-	//			vector = Vector3.up;
-	//			canmove = false;
-	//			Debug.Log("줄타기위");
-	//			rigid.drag = 10000;
-	//			transform.position += vector*speed*Time.deltaTime;
-	//		}
-	//		else if(Input.GetAxisRaw("Vertical") < 0){
-
-	//			collie.isTrigger = true;
-	//			vector = Vector3.zero;
-	//			vector = Vector3.down;
-
-	//			canmove = false;
-
-	//			Debug.Log("줄타기밑");
-	//			rigid.drag = 10000;
-	//			transform.position += vector * speed * Time.deltaTime;
-
-	//		}
-	//		if ((Input.GetAxisRaw("Horizontal") >=0 || Input.GetAxisRaw("Horizontal") <= 0)&&Input.GetKeyDown(KeyCode.Space))
-	//		{
-	//			rigid.drag = 1;
-	//			canmove = true;
-	//			jumpcount = 2;
-
-	//		}
-	//	}
-
-	//	if (collision.gameObject.tag == "LineOut")
-	//	{
-
-	//		rigid.drag = 1;
-	//		collie.isTrigger = false;
-
-
-	//	}
-
-
-	//}
-
-	//private void OnTriggerEnter2D(Collider2D collision)
-	//{
-
-
-
-	//	if (collision.gameObject.tag == "GOut")
-	//	{
-	//		Debug.Log("나가기~");
-	//		rigid.drag = 1;
-	//		collie.isTrigger = true;
-	//	}
-	//}
-
-
-
-
-	//private void OnTriggerStay2D(Collider2D collision)
-	//{
-	//    if (collision.gameObject.tag == "Ground")
-	//    {
-	//        collie.isTrigger = false;
-
-	//    }
-
-	//}
+	
 	private void FixedUpdate()
 	{
         if (mOb.ani.GetFloat("Debuff") != 1)
@@ -581,93 +417,7 @@ public class Player : MonoBehaviour,ObjInterface
 		
 
 	}
-	//public void testJump() {
-	//	if (!jump || jumpcount == 0)
-	//	{
-		  
-
-	//		return ;
-
-	//	}
-		
-	//	rigid.velocity = Vector2.zero;
-	//	Vector2 jumpvector = new Vector2(0, jumppower);
-
-
-
-	//	if (jumpcount == 1)
-	//	{
-	//		canmove = false;
-			
-	//		if (Input.GetAxisRaw("Horizontal") >0||Input.GetAxisRaw("Horizontal")==0)
-	//		{
-			  
-	//		   jumpvector = new Vector2(speed, jumppower);
-				
-	//		}
-	//		if (Input.GetAxisRaw("Horizontal")<0)
-	//		{
-			   
-	//			jumpvector = new Vector2(-speed, jumppower);
-			   
-	//		}
-		   
-			
-	//		rigid.AddForce(jumpvector, ForceMode2D.Impulse);
-		   
-			
-
-	//	}
-	//	if (jumpcount == 2 && mOb.righ == "Right")
-	//	{
-	//		Debug.Log("오");
-	//	 ;
-	//		attacktime = false;
-	//		rigid.AddForce(jumpvector, ForceMode2D.Impulse);
-			
-	//	}
-	//	if(jumpcount==2&&mOb.righ.Equals("Left"))
-	//	{
-	//		Debug.Log("왼");
-		   
-		  
-	//		attacktime = false;
-	//		rigid.AddForce(jumpvector, ForceMode2D.Impulse);
-	//	}
-	//	jump = false;
-	//	jumpcount--;
-	//}
-	//IEnumerator Jump()
-	//{
-	//    if (!jump || jumpcount == 0)
-	//    {
-
-
-	//        yield break;
-	//    }
-	//    rigid.velocity = Vector2.zero;
-	//    Vector2 jumpvector = new Vector2(0, jumppower);
-
-
-
-	//    if (jumpcount == 1)
-	//    {
-	//        canmove = false;
-	//        Debug.Log("이단점프!");
-	//        jumpvector = new Vector2(speed, jumppower);
-	//        jumpcount = 0;
-	//        rigid.AddForce(jumpvector, ForceMode2D.Impulse);
-
-
-
-	//    }
-	//    if (jumpcount == 2)
-	//        rigid.AddForce(jumpvector, ForceMode2D.Impulse);
-
-
-	//    jump = false;
-	//    jumpcount--;
-	//}
+	
 	public void Move()
 	{
         if (waitMove == true)
@@ -677,24 +427,9 @@ public class Player : MonoBehaviour,ObjInterface
 		vector = Vector3.zero;
 		if (Input.GetAxisRaw("Horizontal") != 0)
 		{
-			if (Input.GetAxisRaw("Horizontal") > 0)
-			{
-				vector = Vector3.right;
-				mOb.righ = "Right";
-				mOb.ani.SetBool("Right", true);
-
-				;
-
-			}
-			if (Input.GetAxisRaw("Horizontal") < 0)
-			{
-				
-				vector = Vector3.left;
-				mOb.righ = "Left";
-				mOb.ani.SetBool("Right", false);
-
-			}
-			Debug.Log(" " + mOb.righ);
+			vector = (Input.GetAxisRaw("Horizontal") > 0) ? Vector3.right : Vector3.left;
+			mOb.righ = (Input.GetAxisRaw("Horizontal") > 0) ? "Right" : "Left";
+			mOb.ani.SetBool("Right", (Input.GetAxisRaw("Horizontal") > 0)?true:false);
 			transform.position += vector * mOb.speed * Time.deltaTime;
 			mOb.ani.SetBool("Walking", true);
 		}
@@ -719,12 +454,6 @@ public class Player : MonoBehaviour,ObjInterface
 
 
 
-	public void lowerJump()
-	{
-		canmove = false;
-		jumpcount = 1;
-		collie.isTrigger = true;
-		transform.position=new Vector3(transform.position.x, transform.position.y-1.0f, transform.position.z);
-	}
+	
 	
 }
