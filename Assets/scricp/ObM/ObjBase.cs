@@ -108,6 +108,9 @@ public class ObjBase
     public void AttackEnd(ObjBase mOb)
     {
         mOb.ani.SetBool("Attack", false);
+        ((mOb.righ == "Right") ? mOb.HitboxR : mOb.HitboxL).SetActive(false);
+
+
     }
     public void HitEnd(ObjBase mOb)
     {
@@ -145,6 +148,8 @@ public class ObjBase
                 break;
 
         }
+        player.mOb.maxhp += 1000;
+        player.mOb.curhp = player.mOb.maxhp;
         GameObject.Find("GameMgr").GetComponent<GameMgr>().LeveUpEf();
     }
     

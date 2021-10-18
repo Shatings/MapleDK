@@ -84,8 +84,10 @@ public class EmyBase //: //ObjBase
         List<ObjBase> fos = mOb.Httest(hitbox);
         Debug.Log(hitbox.name);
         Debug.Log("숫자" + fos.Count);
+        hitbox.SetActive(true);
         if (targertOb.inv == false)
         {
+
             for (int i = 0; i < fos.Count; i++)
             {
                 Debug.Log("타입+"+ mOb.mType);
@@ -103,11 +105,11 @@ public class EmyBase //: //ObjBase
                         mOb.attackp = 400;
                     }
                     Debug.Log("공격력"+mOb.attackp);
-                    hitbox.SetActive(true);
+                    
 
                     mOb.Attack1(targertOb.mOb,gameObject);
                     
-                    hitbox.SetActive(false);
+                  
 
                 }
 

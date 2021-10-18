@@ -21,12 +21,16 @@ public class GameMgr : MonoBehaviour
     [SerializeField]
     private Transform resofomR;
     private int maxemy;
+    
     [SerializeField]
     private List<float> resoformtime = new List<float>();
     [SerializeField]
     private List<float> checkretime = new List<float>();
     [SerializeField]
     private List<float> lastretime = new List<float>();
+    [SerializeField]
+    private int emyLe;
+    [SerializeField]
 
 
     void Start()
@@ -133,7 +137,7 @@ public class GameMgr : MonoBehaviour
     }
    private void LoadOb(GameObject _ems,int maxemy)
     {
-        int emyLe=(int)GameObject.FindGameObjectsWithTag("Emy").Length;
+         emyLe=(int)GameObject.FindGameObjectsWithTag("Emy").Length;
         if (emyLe < 100)
         {
 

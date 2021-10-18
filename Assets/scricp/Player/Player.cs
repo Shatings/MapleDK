@@ -45,38 +45,7 @@ public class Player : MonoBehaviour,ObjInterface
 
 
 
-	//public void OnAttack(MonoBehaviour mb)
-	//{
-	//    if (mb.name.Equals("Emy") || mb.name.Equals("Emy(Clone)"))
-	//    {
-	//        Debug.Log(" " + mb.name);
-	//        Emy1 es = (Emy1)mb;
-	//        es.mOb.curhp -= mOb.attackp;
-	//        Debug.Log(mb.name + " Hit " + mOb.attackp);
-	//        if (es.mOb.curhp <= 0)
-	//        {
 
-	//            Debug.Log("Dead");
-
-	//            GameObject.Destroy(es.gameObject);
-
-
-	//            Gv.gThis.mOm.Remove(es.mOb);
-
-
-	//        }
-
-	//    }
-
-
-
-	//}
-	//public Vector3 getPos()
-	//{
-	//    return this.transform.position;
-	//}
-
-	// Start is called before the first frame update
 	void Start()
 	{
 		maxexp = 100;
@@ -153,7 +122,7 @@ public class Player : MonoBehaviour,ObjInterface
 	// Update is called once per frame
 	void Update()
 	{
-		Debug.Log("mf:" + mFloor);
+		
 		oldPos = mOb.getPos();
 		endjump = this.transform.position.y;
 		Om om = Gv.gThis.mOm;
@@ -192,7 +161,7 @@ public class Player : MonoBehaviour,ObjInterface
 		}
 		
 		JumpProcess(om);
-        if (mFloor != null&&!inv)
+        if (mFloor!=null&&!inv)
         {
 			mOb.ani.SetBool("Hit", true);
 			mOb.curhp -= 100;
@@ -202,7 +171,7 @@ public class Player : MonoBehaviour,ObjInterface
 		
 		if(mOb.getPos().y <= mOb.floor1y)
 		{
-
+			mFloor = null;
 			mOb.ani.SetBool("Jump", false);
 			jumpState = 0;
 			this.transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
