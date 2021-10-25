@@ -25,11 +25,11 @@ public class Emy1 : MonoBehaviour, ObjInterface
         mOb.transform = this.transform;
         mOb.ani = GetComponent<Animator>();
 
-        mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
-        mOb.HitboxR.SetActive(false);
-        mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
+        mOb.Hitbox = this.transform.Find("HItBoxRight").gameObject;
+        mOb.Hitbox.SetActive(false);
+        //mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
 
-        mOb.HitboxL.SetActive(false);
+        //mOb.HitboxL.SetActive(false);
         Gv.gThis.mOm.Add(this.mOb);
 
         
@@ -56,6 +56,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
 
         if (emy.get().Count > 0&&mOb.die==false)
         {
+            
             emy.Move(emy.get(), emy.targetPos, emy.targetRad, gameObject.transform, mOb);
         }
     }

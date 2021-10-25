@@ -14,8 +14,8 @@ public class ObjBase
     public MonoBehaviour mMb;
     public string mType;
     public ObjInterface mOi;
-    public GameObject HitboxR;
-    public GameObject HitboxL;
+    public GameObject Hitbox;
+    public GameObject HitboxSkill;
     public string righ;
     public int maxhp = 100;
     public int curhp = 100;
@@ -123,7 +123,7 @@ public class ObjBase
     public void AttackEnd(ObjBase mOb)
     {
         mOb.ani.SetBool("Attack", false);
-        ((mOb.righ == "Right") ? mOb.HitboxR : mOb.HitboxL).SetActive(false);
+       
 
 
     }
@@ -172,11 +172,11 @@ public class ObjBase
     {
         Om om = Gv.gThis.mOm;
         
-        GameObject hitbox = HitboxL;
+        GameObject hitbox = Hitbox;
         if (righ == "Right")
         {
 
-            hitbox = HitboxR;
+            hitbox = Hitbox;
 
         }
        

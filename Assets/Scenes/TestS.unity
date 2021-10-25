@@ -523,10 +523,10 @@ MonoBehaviour:
   - 0
   - 0
   checkretime:
-  - 10
-  - 12
-  - 14
-  - 16
+  - 15151551
+  - 5
+  - 1.5187516e+9
+  - 152751710
   lastretime:
   - 5
   - 5
@@ -738,6 +738,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4130812703349869025, guid: bef646319206e82448105c542b5f506b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4130812703349869025, guid: bef646319206e82448105c542b5f506b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4130812703349869026, guid: bef646319206e82448105c542b5f506b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4130812703780329748, guid: bef646319206e82448105c542b5f506b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4130812703780329749, guid: bef646319206e82448105c542b5f506b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4130812704361698554, guid: bef646319206e82448105c542b5f506b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c218498a7bdbbf849aea2c730c00c8d6, type: 2}
     - target: {fileID: 4130812704361698555, guid: bef646319206e82448105c542b5f506b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -781,6 +805,10 @@ PrefabInstance:
     - target: {fileID: 4130812704361698555, guid: bef646319206e82448105c542b5f506b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4130812704361698555, guid: bef646319206e82448105c542b5f506b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4130812704361698556, guid: bef646319206e82448105c542b5f506b, type: 3}
       propertyPath: maxexp
@@ -1102,9 +1130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7ab0ef57ed0e14e815f9f15bbf2c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixer: {fileID: 24100000, guid: d7d0274d082f6974eb4c43c2b52d652a, type: 2}
   bgmS: {fileID: 2069695775}
-  bgso: []
+  bgso:
+  - {fileID: 8300000, guid: 28f05934c2b857440827562b9282483e, type: 3}
+  soundeff:
+  - {fileID: 8300000, guid: 066188ef2a8761f48a809dd45e3fd6b3, type: 3}
 --- !u!4 &2069695777
 Transform:
   m_ObjectHideFlags: 0

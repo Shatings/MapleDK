@@ -36,6 +36,7 @@ public class EmyBase //: //ObjBase
     {
         AttackCheck(mOb, oldpos);
         Debug.Log(mOb.mType);
+        oldpos.localScale = (targetPos.x > oldpos.position.x) ? new Vector3(-1, oldpos.localScale.y, oldpos.localScale.z) : new Vector3(1, oldpos.localScale.y, oldpos.localScale.z);
         switch (mOb.mType)
         {
            
@@ -44,7 +45,7 @@ public class EmyBase //: //ObjBase
                 if (Mathf.Abs(targetPos.x - oldPos.x) >= targetRad.x)
                 {
 
-                    mOb.righ = (targetPos.x > oldpos.position.x) ? "Right" : "Left";
+                   
                     oldpos.position = new Vector3(oldpos.position.x + ((targetPos.x > oldpos.position.x) ? +Time.deltaTime : -Time.deltaTime) * mOb.speed, oldpos.position.y, 0);
 
                     mOb.ani.SetBool("Move", true);
@@ -61,7 +62,7 @@ public class EmyBase //: //ObjBase
                 if (Mathf.Abs(targetPos.x - oldPos.x) > targetRad.x&&!mOb.ani.GetBool("Attack"))
                 {
 
-                    mOb.righ = (targetPos.x > oldpos.position.x) ? "Right" : "Left";
+                    
                     oldpos.position = new Vector3(oldpos.position.x + ((targetPos.x > oldpos.position.x) ? +Time.deltaTime : -Time.deltaTime) * mOb.speed, oldpos.position.y, 0);
 
                     mOb.ani.SetBool("Move", true);
@@ -84,7 +85,7 @@ public class EmyBase //: //ObjBase
         List<ObjBase> fos = mOb.Httest(hitbox);
         Debug.Log(hitbox.name);
         Debug.Log("숫자" + fos.Count);
-        hitbox.SetActive(true);
+        
         if (targertOb.inv == false)
         {
 
@@ -116,5 +117,6 @@ public class EmyBase //: //ObjBase
             }
         }
     }
+    
    
 }

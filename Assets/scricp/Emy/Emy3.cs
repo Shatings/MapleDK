@@ -25,11 +25,11 @@ public class Emy3 : MonoBehaviour, ObjInterface
         mOb.maxhp = 200;
         mOb.curhp = mOb.maxhp;
 
-        mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
-        mOb.HitboxR.SetActive(false);
-        mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
+        mOb.Hitbox = this.transform.Find("HItBoxRight").gameObject;
+        mOb.Hitbox.SetActive(false);
+        //mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
 
-        mOb.HitboxL.SetActive(false);
+        //mOb.HitboxL.SetActive(false);
         Gv.gThis.mOm.Add(this.mOb);
 
 

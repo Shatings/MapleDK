@@ -25,10 +25,10 @@ public class Emy4 : MonoBehaviour, ObjInterface
         mOb.mType = Emy4.gType;
         mOb.ani = GetComponent<Animator>();
 
-        mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
-        mOb.HitboxR.SetActive(false);
-        mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
-        mOb.HitboxL.SetActive(false);
+        mOb.Hitbox = this.transform.Find("HItBoxRight").gameObject;
+        mOb.Hitbox.SetActive(false);
+        //mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
+        //mOb.HitboxL.SetActive(false);
         Gv.gThis.mOm.Add(this.mOb);
 
 

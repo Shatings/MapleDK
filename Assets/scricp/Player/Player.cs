@@ -64,10 +64,10 @@ public class Player : MonoBehaviour,ObjInterface
 
 		
 		//Hitbox 
-		mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
-		mOb.HitboxR.SetActive(false);
-		mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
-		mOb.HitboxL.SetActive(false);
+		mOb.Hitbox = this.transform.Find("HItBoxRight").gameObject;
+		mOb.Hitbox.SetActive(false);
+		//mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
+		//mOb.HitboxL.SetActive(false);
 		mOb.righ= "Left";
 		invetory = GameObject.Find("Canvas").transform.Find("Scroll View").gameObject;
 		invetory.SetActive(false);
@@ -161,7 +161,7 @@ public class Player : MonoBehaviour,ObjInterface
 			GameObject hitbox = mOb.GetHitBox();
 			mOb.ani.SetBool("Attack", true);
 			
-			hitbox.SetActive(true);
+			
 			 
 
 		}
@@ -382,8 +382,8 @@ public class Player : MonoBehaviour,ObjInterface
 		if (mOb.time > 0.2f)
 		{
 			
-			mOb.HitboxR.SetActive(false);
-			mOb.HitboxL.SetActive(false);
+			mOb.Hitbox.SetActive(false);
+			
 			mOb.time = 0;
 
 		}
