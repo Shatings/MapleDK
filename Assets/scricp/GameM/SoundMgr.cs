@@ -6,17 +6,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 public class SoundMgr : MonoBehaviour
 {
-    public AudioMixer mixer;
     public AudioSource bgmS;
     public static SoundMgr instance;
-    public AudioClip[] bgso;
+    [SerializeField]
+    private List<AudioClip> bgso=new List<AudioClip>();
+    [SerializeField]
+    private List<AudioClip> soundeff=new List<AudioClip>();
     private void Awake()
     {
         if (instance == null)
         {
+            BgmSPlay(0);
             instance = this;
             DontDestroyOnLoad(instance);
-            SceneManager.sceneLoaded += OnSceanL;
+            //SceneManager.sceneLoaded += OnSceanL;
           
         }
         else
@@ -24,52 +27,30 @@ public class SoundMgr : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void OnSceanL(Scene arg0, LoadSceneMode arg1)
-    {
-       for(int i = 0; i < bgso.Length; i++)
-        {
-            if (arg0.name == bgso[i].name)
-            {
-                BgmSPlay(bgso[i]);
-            }
-        }
-    }
-   
-   
-    public void BgSoundV(float val)
-    {
-        mixer.SetFloat("BgSound", Mathf.Log10(val) * 20);
-
-    }
-    public void VFXV(float val)
-    {
-        mixer.SetFloat("VF", Mathf.Log10(val) * 20);
-    }
-    public void soundPlay(string soundName, AudioClip cilp)
+    public void soundPlay(int id,string soundName)
     {
         GameObject name = new GameObject(soundName + "Sound");
 
         AudioSource audiosouse = name.AddComponent<AudioSource>();
-        audiosouse.outputAudioMixerGroup = mixer.FindMatchingGroups("VFS")[0];
+        
 
-        audiosouse.clip = cilp;
+        audiosouse.clip = soundeff[id];
         audiosouse.Play();
 
-        Destroy(name, cilp.length);
+        Destroy(name, soundeff[id].length);
     }
-    public void BgmSPlay(AudioClip cilp)
+    public void BgmSPlay(int id)
     {
-        bgmS.outputAudioMixerGroup = mixer.FindMatchingGroups("Bgm")[0];
-        bgmS.clip = cilp;
+        
+        bgmS.clip = bgso[id];
         bgmS.loop = true;
         bgmS.volume = 0.1f;
         bgmS.Play();
        
     }
-    public void BgmStop(AudioClip cilp)
+    public void BgmStop(int id)
     {
-        bgmS.clip = cilp;
+        bgmS.clip = bgso[id];
         bgmS.loop = false;
         bgmS.Stop();
     }

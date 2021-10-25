@@ -41,6 +41,7 @@ public class Player : MonoBehaviour,ObjInterface
 	public float debufftime;
 	[SerializeField]
 	public ObjBase mFloor = null;
+	
 
 
 
@@ -58,6 +59,8 @@ public class Player : MonoBehaviour,ObjInterface
 		f2G = FindObjectOfType<F2Ground>();
 		Gv.gThis.mOm.Add(this.mOb);
 		mOb.ani = GetComponent<Animator>();
+		mOb.clip = Resources.Load("Sound/P_Attack") as AudioClip;
+		Debug.Log(mOb.clip);
 
 		
 		//Hitbox 
@@ -74,6 +77,8 @@ public class Player : MonoBehaviour,ObjInterface
 		transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
 		f1jump = true;
 		jumpState = 0;
+		mOb.transform = this.transform;
+		
 
 
 	}
@@ -91,6 +96,7 @@ public class Player : MonoBehaviour,ObjInterface
 	}
 	private void Attack()
     {
+		SoundMgr.instance.soundPlay(0,"P_attack");
 		GameObject hitbox = mOb.GetHitBox();
 		List<ObjBase> fos = mOb.Httest(hitbox);
 
@@ -161,7 +167,8 @@ public class Player : MonoBehaviour,ObjInterface
 		}
 		
 		JumpProcess(om);
-        if (mFloor!=null&&!inv)
+
+		if (mFloor!=null&&!inv)
         {
 			mOb.ani.SetBool("Hit", true);
 			mOb.curhp -= 100;
@@ -186,6 +193,7 @@ public class Player : MonoBehaviour,ObjInterface
 
 	public void JumpProcess(Om om)
 	{
+		
 		if (jumpState==0||jumpState == 1 || jumpState == 2)
 		{
 			if(jumpState == 0 && Input.GetKeyDown(KeyCode.DownArrow))
@@ -296,6 +304,10 @@ public class Player : MonoBehaviour,ObjInterface
 		   
 			
 	   }
+        else
+        {
+			mFloor=null;
+        }
 		Debug.Log(fos.Count);
 		
 		
@@ -357,15 +369,16 @@ public class Player : MonoBehaviour,ObjInterface
 			mOb.ani.SetFloat("Debuff", 1);
 			debufftime = 0;
 		}
-        if (mOb.ani.GetBool("Hit"))
+		
+			Move();
+
+
+		
+		if (mOb.ani.GetBool("Hit"))
         {
 			StartCoroutine(UnBeatTime());
         }
-		if (!mOb.ani.GetBool("Hit")&&!mOb.ani.GetBool("Attack"))
-        {
-			Move();
-
-		}
+		
 		if (mOb.time > 0.2f)
 		{
 			
@@ -374,7 +387,7 @@ public class Player : MonoBehaviour,ObjInterface
 			mOb.time = 0;
 
 		}
-        if (Damagetime > 1)
+        if (Damagetime > 0.3)
         {
 			StopAllCoroutines();
 			mOb.sprite.color = new Color32(255, 255, 255, 255);
@@ -398,7 +411,7 @@ public class Player : MonoBehaviour,ObjInterface
 		{
 			vector = (Input.GetAxisRaw("Horizontal") > 0) ? Vector3.right : Vector3.left;
 			mOb.righ = (Input.GetAxisRaw("Horizontal") > 0) ? "Right" : "Left";
-			mOb.ani.SetBool("Right", (Input.GetAxisRaw("Horizontal") > 0)?true:false);
+			this.transform.localScale=(Input.GetAxisRaw("Horizontal") > 0)?new Vector3(-1,this.transform.localScale.y,this.transform.localScale.z):new Vector3(1, this.transform.localScale.y, this.transform.localScale.z);
 			transform.position += vector * mOb.speed * Time.deltaTime;
 			mOb.ani.SetBool("Walking", true);
 		}

@@ -31,6 +31,7 @@ public class GameMgr : MonoBehaviour
     [SerializeField]
     private int emyLe;
     [SerializeField]
+    private int score = 0;
 
 
     void Start()
@@ -94,20 +95,20 @@ public class GameMgr : MonoBehaviour
                         {
                             case 0:
                                 maxemy = 1;
-                                LoadOb(ems[i], maxemy);
+                                LoadOb(ems[i], maxemy,i);
                                 break;
                             case 1:
                                maxemy = 1;
-                               LoadOb(ems[i], maxemy);
+                               LoadOb(ems[i], maxemy,i);
                                 break;
                             case 2:
                                 maxemy = 1;
-                                LoadOb(ems[i], maxemy);
+                                LoadOb(ems[i], maxemy,i);
                                
                                 break;
                             case 3:
                                 maxemy = 1;
-                                LoadOb(ems[i], maxemy);
+                                LoadOb(ems[i], maxemy,i);
 
                                 break;
                             default:
@@ -135,7 +136,7 @@ public class GameMgr : MonoBehaviour
            
         }
     }
-   private void LoadOb(GameObject _ems,int maxemy)
+   private void LoadOb(GameObject _ems,int maxemy,int id)
     {
          emyLe=(int)GameObject.FindGameObjectsWithTag("Emy").Length;
         if (emyLe < 100)
@@ -145,8 +146,10 @@ public class GameMgr : MonoBehaviour
             {
 
                 GameObject obj = Instantiate(_ems);
+                AttackOB(id, obj);
                 obj.transform.position = new Vector3(resofomL.position.x + i, resofomL.position.y);
                 GameObject obj2 = Instantiate(_ems);
+                AttackOB(id, obj2);
                 obj2.transform.position = new Vector3(resofomR.position.x + i, resofomR.position.y);
 
 
@@ -154,9 +157,36 @@ public class GameMgr : MonoBehaviour
         }
       
     }
+    private void AttackOB(int id,GameObject obj)
+    {
+        switch (id)
+        {
+            case 0:
+                Debug.Log("앙"+ obj.GetComponent<Emy1>().mOb);
+                obj.GetComponent<Emy1>().mOb.attackp += 100;
+                break;
+            case 1:
+                obj.GetComponent<Emy2>().mOb.attackp += 400;
+                break;
+            case 2:obj.GetComponent<Emy3>().mOb.attackp += 500;
+                break;
+            case 3:
+                obj.GetComponent<Emy4>().mOb.attackp += 1000;
+                break;
+
+        }
+    }
     public void LeveUpEf()
     {
         GameObject obj = Instantiate(levelUp);
         obj.transform.position = player.transform.position;
+    }
+    public void ScoreM(int _score)
+    {
+        score += _score;    
+    }
+    public int ScoreT()
+    {
+        return score;
     }
 }

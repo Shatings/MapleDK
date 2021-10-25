@@ -5,7 +5,7 @@ using UnityEngine;
 public class Emy2 : MonoBehaviour, ObjInterface
 {
     public static string gType = "Enemy2";
-    public ObjBase mOb;
+    public ObjBase mOb = new ObjBase();
     public EmyBase emy;
 
     //public Vector3 getPos()
@@ -37,6 +37,8 @@ public class Emy2 : MonoBehaviour, ObjInterface
         emy.oldPos = mOb.getPos();
         transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
         mOb.plusExp = 100;
+        mOb.point = 200;
+        mOb.transform = this.transform;
 
     }
     private void Update()

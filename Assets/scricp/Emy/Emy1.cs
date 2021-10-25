@@ -7,7 +7,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
 {
     public static string gType = "Enemy1";
     //  private List<ObjBase> play;
-    public ObjBase mOb;
+    public ObjBase mOb=new ObjBase();
     public EmyBase emy;
     //public Vector3 getPos()
     //{
@@ -22,6 +22,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
         mOb.speed = 4f;
         mOb.mMb = this;
         mOb.mType =Emy1.gType;
+        mOb.transform = this.transform;
         mOb.ani = GetComponent<Animator>();
 
         mOb.HitboxR = this.transform.Find("HItBoxRight").gameObject;
@@ -35,6 +36,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
         emy.oldPos = mOb.getPos();
         transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
         mOb.plusExp = 50;
+        mOb.point = 100;
 
     }
     private void Update()

@@ -6,7 +6,7 @@ public class Emy4 : MonoBehaviour, ObjInterface
 {
     public static string gType = "Enemy4";
     //  private List<ObjBase> play;
-    public ObjBase mOb;
+    public ObjBase mOb = new ObjBase();
     public EmyBase emy;
     //public Vector3 getPos()
     //{
@@ -35,6 +35,8 @@ public class Emy4 : MonoBehaviour, ObjInterface
         emy.oldPos = mOb.getPos();
         transform.position = new Vector3(transform.position.x, mOb.floor1y+2, transform.position.z);
         mOb.plusExp = 300;
+        mOb.point = 400;
+        mOb.transform = this.transform;
 
     }
 

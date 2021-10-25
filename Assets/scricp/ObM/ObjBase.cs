@@ -35,6 +35,9 @@ public class ObjBase
     public float attackz = -0.01f;
     public float adimz = 0;
     public float basicspeed= 5f;
+    public AudioClip clip;
+    public int point;
+    public Transform transform;
     
     
     
@@ -45,7 +48,16 @@ public class ObjBase
         mType = "None";
         
     }
+    public void DangeText( ObjBase player)
+    {
+        Transform tarD = player.transform;
 
+        GameObject hitT = GameObject.Instantiate(Resources.Load("Prefab/DangeT") as GameObject);
+        hitT.GetComponent<HitM>().DangeT(player);
+       
+        hitT.transform.position = tarD.position;
+        
+    }
 
     public Vector3 getPos()
     {
@@ -74,6 +86,7 @@ public class ObjBase
       
         tarob.ani.SetBool("Hit", true);
         gameOb.transform.position=new Vector3(gameOb.transform.position.x,gameOb.transform.position.y,attackz);
+        DangeText(tarob);
         
         
         tarob.mMb.gameObject.transform.position = new Vector3(tran.x, tran.y, adimz);
@@ -88,6 +101,8 @@ public class ObjBase
                 PlusExp(tarob);
                 tarob.die = true;
                 Object.FindObjectOfType<Player>().dead++;
+                Object.FindObjectOfType<GameMgr>().ScoreM(tarob.point);
+
 
             }
              Debug.Log(tarob.mType+" Dead");
