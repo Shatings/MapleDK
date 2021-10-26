@@ -9,6 +9,7 @@ public class Om //<_T1> //ObjMgr
     public GameObject tmonster;
     public Emy1 ems;
     public int j = 1;
+    private static int checkdead;
     public Dictionary<int, ObjBase> valuePairs = new Dictionary<int, ObjBase>
     {
 
@@ -28,6 +29,8 @@ public class Om //<_T1> //ObjMgr
         mOs.Remove(obj);
         j--;
         valuePairs.Remove(j);
+        checkdead++;
+        Debug.Log("몬스터 죽은회수"+checkdead);
 
         
     }
