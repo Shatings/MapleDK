@@ -94,6 +94,14 @@ public class Player : MonoBehaviour,ObjInterface
 			mOb.PlusLevel(this.gameObject.GetComponent<Player>());
 		}
 	}
+	private void Skill1()
+	{
+		if (!FindObjectOfType<Summons>())
+		{
+			GameObject gameob = Resources.Load("Prefab/Skill1") as GameObject;
+			Instantiate(gameob);
+		}
+	}
 	private void Attack()
     {
 		SoundMgr.instance.soundPlay(0,"P_attack");
@@ -156,15 +164,15 @@ public class Player : MonoBehaviour,ObjInterface
 	  
 		//Debug.Log("" + HitboxR.transform.position);
 
-		if (Input.GetKeyDown(KeyCode.Q))
+		if (Input.GetKeyDown(KeyCode.LeftControl))
 		{   
 			GameObject hitbox = mOb.GetHitBox();
 			mOb.ani.SetBool("Attack", true);
-			
-			
-			 
-
 		}
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+			Skill1();
+        }
 		
 		JumpProcess(om);
 
