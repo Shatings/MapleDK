@@ -31,7 +31,7 @@ public class GameMgr : MonoBehaviour
     [SerializeField]
     private int emyLe;
     [SerializeField]
-    private int score = 0;
+    public int score = 0;
 
 
     void Start()
@@ -72,8 +72,8 @@ public class GameMgr : MonoBehaviour
             case  0: //Start
                 //db load
                 {
-                    player.mOb.curhp = 5000;
-                    player.mOb.maxhp = 5000;
+                    player.mOb.curhp = 50;
+                    player.mOb.maxhp = 500;
                     player.mOb.attackp = 100;
                     player.jumppower = 4f;
                     player.level = 1;

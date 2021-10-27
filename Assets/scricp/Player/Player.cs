@@ -41,6 +41,7 @@ public class Player : MonoBehaviour,ObjInterface
 	public float debufftime;
 	[SerializeField]
 	public ObjBase mFloor = null;
+	private bool checkDb = false;
 	
 
 
@@ -132,7 +133,17 @@ public class Player : MonoBehaviour,ObjInterface
 		mOb.AttackEnd(mOb);
 
 	}
-	
+	private void CheckHp()
+    {
+		if (mOb.curhp <= 0&&!checkDb)
+		{
+			TestDB test = FindObjectOfType<TestDB>();
+			test.Insert += "(\"" + Player.gType+"\","+ FindObjectOfType<GameMgr>().score + ")";
+			Debug.LogError("" + test.Insert);
+			FindObjectOfType<TestDB>().DataBaseInsert(test.Insert);
+			checkDb = true;
+		}
+    }
 	// Update is called once per frame
 	void Update()
 	{
@@ -141,7 +152,7 @@ public class Player : MonoBehaviour,ObjInterface
 		endjump = this.transform.position.y;
 		Om om = Gv.gThis.mOm;
 		mOb.time += Time.deltaTime;
-
+		CheckHp();
 		Checkexp();
         if (inv)
         {

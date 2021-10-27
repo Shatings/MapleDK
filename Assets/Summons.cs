@@ -5,15 +5,20 @@ using UnityEngine;
 public class Summons : MonoBehaviour
 {
     [SerializeField]
-    private float deatime;
+    public float deatime;
     public ObjBase mOb;
-    
+    [SerializeField]
+    private float attackTIme = 0f;
+    public static string gType = "Summons";
+
 
     // Start is called before the first frame update
     void Start()
     {
         mOb = new ObjBase();
-        mOb.attackp = 200;
+        mOb.mType = gType;
+        
+        mOb.attackp = 50;
         mOb.speed = 10;
         
         mOb.Hitbox = this.transform.Find("HItBoxRight").gameObject;
@@ -28,8 +33,25 @@ public class Summons : MonoBehaviour
         List<ObjBase> play = Gv.gThis.mOm.FindPlayer();
         
         Move(play[0]);
-        Attack();
         
+        
+    }
+    private void FixedUpdate()
+    {
+        if (attackTIme !=0)
+        {
+            attackTIme += Time.deltaTime;
+            if (attackTIme > 0.2f)
+            {
+                attackTIme = 0;
+                mOb.Hitbox.SetActive(true);
+            }
+            else
+            {
+                mOb.Hitbox.SetActive(false);
+            }
+           
+        }
     }
     private void Move(ObjBase play)
     {
@@ -42,19 +64,28 @@ public class Summons : MonoBehaviour
         }
         else
         {
-            Debug.Log("제발 되라");
+            
             ObjBase target = Check();
+            Debug.Log("타켓 타입"+target.mType);
             Vector3 targetPos = target.getPos();
             Vector3 targetRad = target.getRadius();
-            transform.localScale = (targetPos.x > transform.position.x) ? new Vector3(-1, transform.localScale.y, transform.localScale.z) : new Vector3(1, transform.localScale.y, transform.localScale.z);
-            if (Mathf.Abs(targetPos.x - transform.position.x) >= targetRad.x)
+
+            Debug.Log("결과"+(Mathf.Abs(targetPos.x - transform.position.x) >0));
+            Debug.Log("타겟 위치-현재위치:" + (targetPos.x - transform.position.x) + "Rand:" + targetRad.x);
+            if (Mathf.Abs(targetPos.x - transform.position.x) >0)
             {
 
-
+                transform.localScale = (targetPos.x > transform.position.x) ? new Vector3(-1, transform.localScale.y, transform.localScale.z) : new Vector3(1, transform.localScale.y, transform.localScale.z);
                 transform.position = new Vector3(transform.position.x + ((targetPos.x > transform.position.x) ? +Time.deltaTime : -Time.deltaTime) * mOb.speed, play.transform.position.y + 1, 0);
-
+                if (attackTIme == 0)
+                {
+                    Attack();
+                    attackTIme += Time.deltaTime;
+                }
+                
 
             }
+            
 
         }
     }
