@@ -13,6 +13,12 @@ public class TestDB : MonoBehaviour
     public string secet="Select * From Score ORDER BY Score DESC";
     public string Insert = "Insert Into Score(Name,Score) VALUES";
     private string Dbpath = "/ScoreDB.db";
+    public string delect = "Delect From Score Where Id>10";
+    [SerializeField]
+    private List<String> Pname = new List<string>();
+    [SerializeField]
+    private List<int> score = new List<int>();
+    
     public int id = 0;
     [SerializeField]
     private Image image;
@@ -22,6 +28,7 @@ public class TestDB : MonoBehaviour
     void Start()
     {
         DBconnetionCheck();
+        DataBaseRead(secet);
     }
     private void Awake()
     {
@@ -30,9 +37,14 @@ public class TestDB : MonoBehaviour
         
        
     }
-    private void DBRank()
+    public void DBRank()
     {
         image.gameObject.SetActive(true);
+        text.text = null;
+        for(int i = 0; i < score.Count; i++)
+        {
+            text.text +=(i+1)+"등 이름:" + Pname[i] + "점수:" + score[i]+"\n";
+        }
         DataBaseRead(secet);
         
     }
@@ -83,7 +95,7 @@ public class TestDB : MonoBehaviour
     }
     public int DataBaseRead(string que)
     {
-        id = 0;
+        ClearList();
         IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
         dbConnection.Open();
         IDbCommand dbCommand = dbConnection.CreateCommand();
@@ -92,9 +104,11 @@ public class TestDB : MonoBehaviour
         while (dataReader.Read())
         {
 
-            Debug.Log(dataReader.GetInt32(0));
-            
-            
+            Debug.Log(dataReader.GetInt32(0) + "," + dataReader.GetString(1) + "," + dataReader.GetInt32(2));
+            score.Add(dataReader.GetInt32(2));
+            Pname.Add(dataReader.GetString(1));
+            id++;
+
         }
         dataReader.Dispose();
         dataReader = null;
@@ -105,7 +119,44 @@ public class TestDB : MonoBehaviour
         return id;
 
     }
+    public void ClearList()
+    {
+        score.Clear();
+        Pname.Clear();
+        id = 1;
+    }
     public void DataBaseInsert(string que)
+    {
+        IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
+        dbConnection.Open();
+        IDbCommand dbCommand = dbConnection.CreateCommand();
+        dbCommand.CommandText = que;
+        dbCommand.ExecuteNonQuery();
+        dbCommand.Dispose();
+        dbCommand = null;
+        dbConnection.Close();
+        dbConnection = null;
+    }
+    public void DataInsertT(int Score)
+    {
+        IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
+        dbConnection.Open();
+        IDbCommand dbCommand = dbConnection.CreateCommand();
+        for(int i = 1; i <= id; i++)
+        {
+            if (Score > score[i])
+            {
+                Insert+= "(\"" + Player.gType + "\"," + Score+ ")";
+                Debug.Log("엄"+Insert);
+                DataBaseInsert(Insert);
+            }
+            else
+            {
+
+            }
+        }
+    }
+    public void DateBaseDelect(string que)
     {
         IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
         dbConnection.Open();

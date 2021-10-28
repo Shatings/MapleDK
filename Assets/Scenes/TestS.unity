@@ -512,8 +512,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b69585802684c64c9660597d18900f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secet: Select * From Score ORDER BY Score DESC
+  secet: 'SELECT * FROM Score ORDER By Score DESC LIMIT 10; SELECT * FROM Score ORDER
+    By Score DESC LIMIT 10; '
   Insert: Insert Into Score(Name,Score) VALUES
+  delect: Delect From Score Where Id>10
+  Pname: []
+  score: 
   id: 0
   image: {fileID: 1664363887}
   text: {fileID: 2036919748}
@@ -567,7 +571,7 @@ MonoBehaviour:
   resofomR: {fileID: 225663190}
   resoformtime:
   - 0
-  - 0
+  - 12
   - 0
   - 0
   checkretime:
@@ -950,7 +954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1664363886
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1205,7 +1209,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -48.9, y: 0}
+  m_AnchoredPosition: {x: -43.9, y: 41.5}
   m_SizeDelta: {x: 200, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2036919748

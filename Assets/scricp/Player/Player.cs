@@ -138,9 +138,8 @@ public class Player : MonoBehaviour,ObjInterface
 		if (mOb.curhp <= 0&&!checkDb)
 		{
 			TestDB test = FindObjectOfType<TestDB>();
-			test.Insert += "(\"" + Player.gType+"\","+ FindObjectOfType<GameMgr>().score + ")";
-			Debug.LogError("" + test.Insert);
-			FindObjectOfType<TestDB>().DataBaseInsert(test.Insert);
+			test.DBRank();
+			test.DataInsertT(FindObjectOfType<GameMgr>().score);
 			checkDb = true;
 		}
     }
