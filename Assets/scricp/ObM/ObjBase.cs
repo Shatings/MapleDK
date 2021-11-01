@@ -38,9 +38,10 @@ public class ObjBase
     public AudioClip clip;
     public int point;
     public Transform transform;
-    
-    
-    
+    public float Aps = 0;
+
+
+
 
 
     public ObjBase()
@@ -96,7 +97,7 @@ public class ObjBase
         }
         if (tarob.curhp <= 0)
         {
-            if (tarob.mType == Emy1.gType|| tarob.mType == Emy2.gType&&tarob.mType==Emy3.gType||tarob.mType == Emy4.gType)
+            if (tarob.mType == Emy1.gType|| tarob.mType == Emy2.gType||tarob.mType==Emy3.gType||tarob.mType == Emy4.gType)
             {
                 PlusExp(tarob);
                 tarob.die = true;
@@ -163,8 +164,8 @@ public class ObjBase
                 break;
 
         }
-        player.mOb.maxhp += 1000;
-        player.mOb.curhp = player.mOb.maxhp;
+        //player.mOb.maxhp += 1000;
+        //player.mOb.curhp = player.mOb.maxhp;
         GameObject.Find("GameMgr").GetComponent<GameMgr>().LeveUpEf();
     }
     

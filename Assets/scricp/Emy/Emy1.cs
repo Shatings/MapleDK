@@ -24,6 +24,8 @@ public class Emy1 : MonoBehaviour, ObjInterface
         mOb.mType =Emy1.gType;
         mOb.transform = this.transform;
         mOb.ani = GetComponent<Animator>();
+        mOb.curhp = 100;
+        mOb.maxhp = 100;
 
         mOb.Hitbox = this.transform.Find("HItBoxRight").gameObject;
         mOb.Hitbox.SetActive(false);
@@ -36,7 +38,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
         emy.oldPos = mOb.getPos();
         transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
         mOb.plusExp = 50;
-        mOb.point = 100;
+        mOb.point = 1;
 
     }
     private void Update()
@@ -60,6 +62,13 @@ public class Emy1 : MonoBehaviour, ObjInterface
             emy.Move(emy.get(), emy.targetPos, emy.targetRad, gameObject.transform, mOb);
         }
     }
+    private void FixedUpdate()
+    {
+        if (emy.attack)
+        {
+            emy.APS(mOb);
+        }
+    }
 
     private void Die()
     {
@@ -68,6 +77,7 @@ public class Emy1 : MonoBehaviour, ObjInterface
     private void Attack()
     {
         emy.Attack(mOb,this.gameObject);
+        emy.attack = true;
 
     }
     public void AttackEnd()

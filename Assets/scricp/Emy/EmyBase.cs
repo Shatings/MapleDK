@@ -8,12 +8,14 @@ public class EmyBase //: //ObjBase
     public float rangex;
     public float rangey;
     public float lowspeed=0.5f;
+    
    
     public Player targertOb;
     public Vector3 targetPos;
     public Vector3 targetRad;
     public Vector3 oldPos;
     public float f1jumping = 0f;
+    public bool attack = false;
     private void AttackCheck(ObjBase mOb,Transform oldpos)
     {
         GameObject hitbox;
@@ -37,12 +39,16 @@ public class EmyBase //: //ObjBase
         AttackCheck(mOb, oldpos);
         Debug.Log(mOb.mType);
         oldpos.localScale = (targetPos.x > oldpos.position.x) ? new Vector3(-1, oldpos.localScale.y, oldpos.localScale.z) : new Vector3(1, oldpos.localScale.y, oldpos.localScale.z);
+        if (mOb.Aps !=0)
+        {
+            return;
+        }
         switch (mOb.mType)
         {
            
             case "Enemy3":
             case "Enemy4":
-                if (Mathf.Abs(targetPos.x - oldPos.x) >= targetRad.x)
+                if (Mathf.Abs(targetPos.x - oldPos.x) >= targetRad.x&&!mOb.ani.GetBool("Attack"))
                 {
 
                    
@@ -74,6 +80,40 @@ public class EmyBase //: //ObjBase
 
                 }
                 break;
+        }
+        
+
+    }
+    public float time()
+    {
+        return Time.deltaTime;
+    }
+    public void APS(ObjBase mOb)
+    {
+        mOb.Aps += Time.deltaTime;
+        Debug.Log("시간:" + mOb.Aps);
+        switch (mOb.mType) 
+        {
+            case "Enemy1":
+            case "Enemy2":
+                if (mOb.Aps > 1)
+                {
+                    mOb.Aps = 0;
+                    attack = false;
+                }
+
+                break;
+            case "Enemy3":
+            case "Enemy4":
+                if (mOb.Aps > 3)
+                {
+                    mOb.Aps = 0;
+                    attack = false;
+                }
+                break;
+
+
+
         }
         
 

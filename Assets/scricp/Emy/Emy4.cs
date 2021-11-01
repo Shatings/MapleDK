@@ -18,9 +18,9 @@ public class Emy4 : MonoBehaviour, ObjInterface
         emy = new EmyBase();
         emy.rangex = 0.5f;
         emy.rangey = 0.5f;
-        mOb.speed = 4f;
-        mOb.curhp = 1000;
-        mOb.maxhp = 1000;
+        mOb.speed = 2f;
+        mOb.curhp = 10;
+        mOb.maxhp = 10;
         mOb.mMb = this;
         mOb.mType = Emy4.gType;
         mOb.ani = GetComponent<Animator>();
@@ -35,7 +35,7 @@ public class Emy4 : MonoBehaviour, ObjInterface
         emy.oldPos = mOb.getPos();
         transform.position = new Vector3(transform.position.x, mOb.floor1y+2, transform.position.z);
         mOb.plusExp = 300;
-        mOb.point = 400;
+        mOb.point = 1;
         mOb.transform = this.transform;
 
     }
@@ -62,6 +62,14 @@ public class Emy4 : MonoBehaviour, ObjInterface
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (emy.attack)
+        {
+            emy.APS(mOb);
+        }
+    }
+
     private void Die()
     {
         mOb.Die(this.gameObject);
@@ -69,6 +77,7 @@ public class Emy4 : MonoBehaviour, ObjInterface
     private void Attack()
     {
         emy.Attack(mOb, this.gameObject);
+        emy.attack = true;
 
     }
     public void AttackEnd()

@@ -18,12 +18,12 @@ public class Emy2 : MonoBehaviour, ObjInterface
         emy = new EmyBase();
         emy.rangex = 0.5f;
         emy.rangey = 0.5f;
-        mOb.speed = 2f;
+        mOb.speed = 5f;
         mOb.mMb = this;
         mOb.mType = Emy2.gType;
         mOb.ani = GetComponent<Animator>();
-        mOb.maxhp = 300;
-        mOb.curhp = mOb.maxhp;
+        mOb.maxhp = 10;
+        mOb.curhp = 10;
         mOb.speed = 2.0f;
 
         mOb.Hitbox = this.transform.Find("HItBoxRight").gameObject;
@@ -37,7 +37,7 @@ public class Emy2 : MonoBehaviour, ObjInterface
         emy.oldPos = mOb.getPos();
         transform.position = new Vector3(transform.position.x, mOb.floor1y, transform.position.z);
         mOb.plusExp = 100;
-        mOb.point = 200;
+        mOb.point = 1;
         mOb.transform = this.transform;
 
     }
@@ -57,15 +57,24 @@ public class Emy2 : MonoBehaviour, ObjInterface
             emy.Move(play, emy.targetPos, emy.targetRad, gameObject.transform, mOb);
         }
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (emy.attack)
+        {
+            emy.APS(mOb);
+        }
+    }
+
     private void Die()
     {
         mOb.Die(this.gameObject);
     }
     private void Attack()
     {
-        emy.Attack(mOb,this.gameObject);
-       
+        emy.Attack(mOb, this.gameObject);
+        emy.attack = true;
+
     }
     public void AttackEnd()
     {

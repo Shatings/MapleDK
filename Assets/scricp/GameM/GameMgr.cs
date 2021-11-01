@@ -32,12 +32,34 @@ public class GameMgr : MonoBehaviour
     private int emyLe;
     [SerializeField]
     public int score = 0;
+    [SerializeField]
+    private bool checkDb=false;
+    [SerializeField]
+    private float realTime;
 
+    public void CheckHp()
+    {
+        if (player.mOb.curhp <= 0 && !checkDb)
+        {
+            checkDb = true;
+            TestDB test = FindObjectOfType<TestDB>();
+            //Debug.Log("아이디이다" + test.DataBaseRead("SELECT * FROM Score"));
+            Debug.Log("엄준식식Insert Into ScoreDB(Name, Score, ID) VALUES" + "(" + "\"" + Player.gType + "\"," + score + "," + test.id + ")");
 
+            test.DataBaseInsert("Insert Into ScoreDB(Name, Score,ID) VALUES" + "(" + "\"" + Player.gType + "\"," + score+"," + test.id + ")");
+            test.DataBaseRead(test.secet);
+            test.Test();
+            test.DataUpdate();
+            test.DBRank();
+
+            
+        }
+    }
     void Start()
     {
-       
-        for(int i = 0; i < 4; i++)
+        
+        
+        for (int i = 0; i < 4; i++)
         {
             ems.Add(Resources.Load("" + reso + "Enemy"+(i+1).ToString()) as GameObject);
         }
@@ -66,14 +88,14 @@ public class GameMgr : MonoBehaviour
     {
         
         Om om = Gv.gThis.mOm;
-        
+        realTime += Time.deltaTime;
         switch (mGameState)
         {
             case  0: //Start
                 //db load
                 {
-                    player.mOb.curhp = 50;
-                    player.mOb.maxhp = 500;
+                    player.mOb.curhp = 5000;
+                    player.mOb.maxhp = 5000;
                     player.mOb.attackp = 100;
                     player.jumppower = 4f;
                     player.level = 1;
@@ -96,19 +118,23 @@ public class GameMgr : MonoBehaviour
                             case 0:
                                 maxemy = 1;
                                 LoadOb(ems[i], maxemy,i);
+                                checkretime[i] = 2f;
                                 break;
                             case 1:
                                maxemy = 1;
                                LoadOb(ems[i], maxemy,i);
+                                checkretime[i] = 2f;
                                 break;
                             case 2:
                                 maxemy = 1;
                                 LoadOb(ems[i], maxemy,i);
+                                checkretime[i] = 5f;
                                
                                 break;
                             case 3:
                                 maxemy = 1;
                                 LoadOb(ems[i], maxemy,i);
+                                checkretime[i] = 5f;
 
                                 break;
                             default:
@@ -123,7 +149,7 @@ public class GameMgr : MonoBehaviour
                             return;
                         }
 
-                        checkretime[i] -= 2;
+                        
 
 
                     }

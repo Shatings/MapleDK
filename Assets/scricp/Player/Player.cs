@@ -27,7 +27,7 @@ public class Player : MonoBehaviour,ObjInterface
 	public Vector3 oldPos;
 
 	public bool waitMove;
-	
+	public bool attacking = false;
 
 	
 	public int jumpState = 0;
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour,ObjInterface
 	public float debufftime;
 	[SerializeField]
 	public ObjBase mFloor = null;
-	private bool checkDb = false;
+	public bool checkDb = false;
 	
 
 
@@ -108,6 +108,7 @@ public class Player : MonoBehaviour,ObjInterface
 		SoundMgr.instance.soundPlay(0,"P_attack");
 		GameObject hitbox = mOb.GetHitBox();
 		List<ObjBase> fos = mOb.Httest(hitbox);
+		attacking = true;
 
 		for (int i = 0; i < fos.Count; i++)
 		{
@@ -130,19 +131,11 @@ public class Player : MonoBehaviour,ObjInterface
     }
 	private void AttackEnd()
 	{
+		attacking = false;
 		mOb.AttackEnd(mOb);
 
 	}
-	private void CheckHp()
-    {
-		if (mOb.curhp <= 0&&!checkDb)
-		{
-			TestDB test = FindObjectOfType<TestDB>();
-			test.DBRank();
-			test.DataInsertT(FindObjectOfType<GameMgr>().score);
-			checkDb = true;
-		}
-    }
+	
 	// Update is called once per frame
 	void Update()
 	{
@@ -151,7 +144,7 @@ public class Player : MonoBehaviour,ObjInterface
 		endjump = this.transform.position.y;
 		Om om = Gv.gThis.mOm;
 		mOb.time += Time.deltaTime;
-		CheckHp();
+		FindObjectOfType<GameMgr>().CheckHp();
 		Checkexp();
         if (inv)
         {
@@ -174,11 +167,7 @@ public class Player : MonoBehaviour,ObjInterface
 	  
 		//Debug.Log("" + HitboxR.transform.position);
 
-		if (Input.GetKeyDown(KeyCode.LeftControl))
-		{   
-			GameObject hitbox = mOb.GetHitBox();
-			mOb.ani.SetBool("Attack", true);
-		}
+		
         if (Input.GetKeyDown(KeyCode.R))
         {
 			Skill1();
@@ -377,7 +366,12 @@ public class Player : MonoBehaviour,ObjInterface
 	
 	private void FixedUpdate()
 	{
-        if (mOb.ani.GetFloat("Debuff") != 1)
+		if (Input.GetKey(KeyCode.LeftControl))
+		{
+			GameObject hitbox = mOb.GetHitBox();
+			mOb.ani.SetBool("Attack", true);
+		}
+		if (mOb.ani.GetFloat("Debuff") != 1)
         {
 			debufftime += Time.deltaTime;
 		}
@@ -420,7 +414,8 @@ public class Player : MonoBehaviour,ObjInterface
 	
 	public void Move()
 	{
-        if (waitMove == true)
+		
+        if (waitMove == true||attacking)
         {
 			return;
         }

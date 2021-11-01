@@ -8,27 +8,41 @@ using UnityEngine.Networking;
 using System;
 using UnityEngine.UI;
 
+//delete... where Score <= (select Score from (SELECT * FROM ScoreDB ORDER By Score ASC LIMIT (15-10)) ORDER By Score DESC LIMIT 1)
+//delete... where Score in (select Score from (SELECT * FROM ScoreDB ORDER By Score ASC LIMIT (15-10))
+
 public class TestDB : MonoBehaviour
 {
-    public string secet="Select * From Score ORDER BY Score DESC";
-    public string Insert = "Insert Into Score(Name,Score) VALUES";
-    private string Dbpath = "/ScoreDB.db";
-    public string delect = "Delect From Score Where Id>10";
+    public string secet= "SELECT * FROM ScoreDB ORDER By Score DESC LIMIT 10;";
+    public string Insert = "Insert Into ScoreDB(Name,Score) VALUES";
+    public string udate=null;
+    private string Dbpath = "/ScoreDBT.db";
+    public string delect = "Delect From ScoreDB Where ID>10";
     [SerializeField]
     private List<String> Pname = new List<string>();
     [SerializeField]
     private List<int> score = new List<int>();
+    [SerializeField]
+    private List<int> DbID = new List<int>();
     
     public int id = 0;
     [SerializeField]
     private Image image;
     [SerializeField]
     private Text text;
+    public void Test()
+    {
+        for(int i = 0; i < score.Count; i++)
+        {
+            Debug.Log("자 들가자"+score[i]);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         DBconnetionCheck();
-        DataBaseRead(secet);
+        DataBaseRead("SELECT * FROM ScoreDB ORDER By Score DESC");
+
     }
     private void Awake()
     {
@@ -41,7 +55,7 @@ public class TestDB : MonoBehaviour
     {
         image.gameObject.SetActive(true);
         text.text = null;
-        for(int i = 0; i < score.Count; i++)
+        for(int i = 0; i < id; i++)
         {
             text.text +=(i+1)+"등 이름:" + Pname[i] + "점수:" + score[i]+"\n";
         }
@@ -105,6 +119,7 @@ public class TestDB : MonoBehaviour
         {
 
             Debug.Log(dataReader.GetInt32(0) + "," + dataReader.GetString(1) + "," + dataReader.GetInt32(2));
+            DbID.Add(dataReader.GetInt32(3));
             score.Add(dataReader.GetInt32(2));
             Pname.Add(dataReader.GetString(1));
             id++;
@@ -121,6 +136,7 @@ public class TestDB : MonoBehaviour
     }
     public void ClearList()
     {
+        DbID.Clear();
         score.Clear();
         Pname.Clear();
         id = 1;
@@ -137,27 +153,28 @@ public class TestDB : MonoBehaviour
         dbConnection.Close();
         dbConnection = null;
     }
-    public void DataInsertT(int Score)
+    public void DataUpdate()
     {
         IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
         dbConnection.Open();
         IDbCommand dbCommand = dbConnection.CreateCommand();
-        for(int i = 1; i <= id; i++)
+        for(int i = 1; i < id; i++)
         {
-            if (Score > score[i])
-            {
-                Insert+= "(\"" + Player.gType + "\"," + Score+ ")";
-                Debug.Log("엄"+Insert);
-                DataBaseInsert(Insert);
-            }
-            else
-            {
 
-            }
+            udate = "UPDATE ScoreDB SET Name = \"" + Pname[i-1] + "\",Score = "+score[i-1]+","+"ID="+i+" WHERE ID ="+i;
+            Debug.Log("엄"+ udate);
+            dbCommand.CommandText = udate;
+            dbCommand.ExecuteNonQuery();
         }
+        dbCommand.Dispose();
+        dbCommand = null;
+        dbConnection.Close();
+        dbConnection = null;
+        DateBaseDelect(delect);
     }
     public void DateBaseDelect(string que)
     {
+        Debug.Log("히히"+que);
         IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
         dbConnection.Open();
         IDbCommand dbCommand = dbConnection.CreateCommand();
