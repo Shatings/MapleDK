@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,9 +25,9 @@ public class Emy1 : MonoBehaviour, ObjInterface
         mOb.mType =Emy1.gType;
         mOb.transform = this.transform;
         mOb.ani = GetComponent<Animator>();
-        mOb.curhp = 100;
-        mOb.maxhp = 100;
-
+        mOb.curhp = 1;
+        mOb.maxhp = 1;
+        mOb.attackp = 1;
         mOb.Hitbox = this.transform.Find("HItBoxRight").gameObject;
         mOb.Hitbox.SetActive(false);
         //mOb.HitboxL = this.transform.Find("HItBoxLeft").gameObject;
@@ -47,19 +48,21 @@ public class Emy1 : MonoBehaviour, ObjInterface
         mOb.time += Time.deltaTime;
         mOb.attacktime += Time.deltaTime; 
         emy.oldPos = mOb.getPos();
-        
-        emy.targertOb = (Player)emy.get()[0].mMb;
-        emy.targetPos = emy.get()[0].getPos();
-        emy.targetRad = emy.get()[0].getRadius();
 
-        
-
-
-
-        if (emy.get().Count > 0&&mOb.die==false)
+        try
         {
-            
-            emy.Move(emy.get(), emy.targetPos, emy.targetRad, gameObject.transform, mOb);
+            List<ObjBase> play = Gv.gThis.mOm.FindPlayer();
+            emy.targertOb = (Player)play[0].mMb;
+            emy.targetPos = play[0].getPos();
+            emy.targetRad = play[0].getRadius();
+            if (play.Count > 0 && mOb.die == false)
+            {
+                emy.Move(play, emy.targetPos, emy.targetRad, gameObject.transform, mOb);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("오류" + e);
         }
     }
     private void FixedUpdate()

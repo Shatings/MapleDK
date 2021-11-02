@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,8 +20,8 @@ public class Emy4 : MonoBehaviour, ObjInterface
         emy.rangex = 0.5f;
         emy.rangey = 0.5f;
         mOb.speed = 2f;
-        mOb.curhp = 10;
-        mOb.maxhp = 10;
+        mOb.curhp = 1;
+        mOb.maxhp = 1;
         mOb.mMb = this;
         mOb.mType = Emy4.gType;
         mOb.ani = GetComponent<Animator>();
@@ -37,6 +38,7 @@ public class Emy4 : MonoBehaviour, ObjInterface
         mOb.plusExp = 300;
         mOb.point = 1;
         mOb.transform = this.transform;
+        mOb.attackp = 1;
 
     }
 
@@ -47,18 +49,20 @@ public class Emy4 : MonoBehaviour, ObjInterface
         mOb.time += Time.deltaTime;
         mOb.attacktime += Time.deltaTime;
         emy.oldPos = mOb.getPos();
-        List<ObjBase> play = Gv.gThis.mOm.FindPlayer();
-        emy.targertOb = (Player)play[0].mMb;
-        emy.targetPos = play[0].getPos();
-        emy.targetRad = play[0].getRadius();
-
-
-
-
-
-        if (play.Count > 0 && mOb.die == false)
+        try
         {
-            emy.Move(play, emy.targetPos, emy.targetRad, gameObject.transform, mOb);
+            List<ObjBase> play = Gv.gThis.mOm.FindPlayer();
+            emy.targertOb = (Player)play[0].mMb;
+            emy.targetPos = play[0].getPos();
+            emy.targetRad = play[0].getRadius();
+            if (play.Count > 0 && mOb.die == false)
+            {
+                emy.Move(play, emy.targetPos, emy.targetRad, gameObject.transform, mOb);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("오류" + e);
         }
     }
 
@@ -83,7 +87,7 @@ public class Emy4 : MonoBehaviour, ObjInterface
     public void AttackEnd()
     {
         mOb.AttackEnd(mOb);
-        mOb.attackp = 100;
+        mOb.attackp %=2;
 
     }
     private void HitEnd()

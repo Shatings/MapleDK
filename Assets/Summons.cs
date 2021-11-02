@@ -17,8 +17,8 @@ public class Summons : MonoBehaviour
     {
         mOb = new ObjBase();
         mOb.mType = gType;
-        
-        mOb.attackp = 50;
+
+        mOb.attackp = 1;
         mOb.speed = 10;
         
         mOb.Hitbox = this.transform.Find("HItBoxRight").gameObject;

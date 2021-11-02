@@ -144,7 +144,15 @@ public class Player : MonoBehaviour,ObjInterface
 		endjump = this.transform.position.y;
 		Om om = Gv.gThis.mOm;
 		mOb.time += Time.deltaTime;
-		FindObjectOfType<GameMgr>().CheckHp();
+		try
+		{
+			FindObjectOfType<GameMgr>().CheckHp();
+		}
+        catch(System.Exception e)
+        {
+			Debug.Log("에러" + e);
+			attacking = true;
+        }
 		Checkexp();
         if (inv)
         {
@@ -172,8 +180,11 @@ public class Player : MonoBehaviour,ObjInterface
         {
 			Skill1();
         }
-		
-		JumpProcess(om);
+
+		if (!mOb.ani.GetBool("Die"))
+		{
+			JumpProcess(om);
+		}
 
 		if (mFloor!=null&&!inv)
         {

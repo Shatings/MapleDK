@@ -94,9 +94,9 @@ public class GameMgr : MonoBehaviour
             case  0: //Start
                 //db load
                 {
-                    player.mOb.curhp = 5000;
-                    player.mOb.maxhp = 5000;
-                    player.mOb.attackp = 100;
+                    player.mOb.curhp = 10;
+                    player.mOb.maxhp = 10;
+                    player.mOb.attackp = 1;
                     player.jumppower = 4f;
                     player.level = 1;
                     player.curexp = 1;
@@ -172,10 +172,10 @@ public class GameMgr : MonoBehaviour
             {
 
                 GameObject obj = Instantiate(_ems);
-                AttackOB(id, obj);
+                
                 obj.transform.position = new Vector3(resofomL.position.x + i, resofomL.position.y);
                 GameObject obj2 = Instantiate(_ems);
-                AttackOB(id, obj2);
+                
                 obj2.transform.position = new Vector3(resofomR.position.x + i, resofomR.position.y);
 
 
@@ -183,25 +183,7 @@ public class GameMgr : MonoBehaviour
         }
       
     }
-    private void AttackOB(int id,GameObject obj)
-    {
-        switch (id)
-        {
-            case 0:
-                Debug.Log("앙"+ obj.GetComponent<Emy1>().mOb);
-                obj.GetComponent<Emy1>().mOb.attackp += 100;
-                break;
-            case 1:
-                obj.GetComponent<Emy2>().mOb.attackp += 400;
-                break;
-            case 2:obj.GetComponent<Emy3>().mOb.attackp += 500;
-                break;
-            case 3:
-                obj.GetComponent<Emy4>().mOb.attackp += 1000;
-                break;
-
-        }
-    }
+   
     public void LeveUpEf()
     {
         GameObject obj = Instantiate(levelUp);

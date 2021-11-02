@@ -91,7 +91,7 @@ public class EmyBase //: //ObjBase
     public void APS(ObjBase mOb)
     {
         mOb.Aps += Time.deltaTime;
-        Debug.Log("시간:" + mOb.Aps);
+
         switch (mOb.mType) 
         {
             case "Enemy1":
@@ -143,7 +143,7 @@ public class EmyBase //: //ObjBase
                     if (mOb.mType == Emy4.gType&&fos[i].mMb.GetComponent<Player>().jumpState!=0)
                     {
                        
-                        mOb.attackp = 400;
+                        mOb.attackp*=2;
                     }
                     Debug.Log("공격력"+mOb.attackp);
                     
