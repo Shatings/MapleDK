@@ -146,12 +146,12 @@ public class Player : MonoBehaviour,ObjInterface
 		mOb.time += Time.deltaTime;
 		try
 		{
-			FindObjectOfType<GameMgr>().CheckHp();
+		FindObjectOfType<GameMgr>().CheckHp();
 		}
         catch(System.Exception e)
         {
 			Debug.Log("에러" + e);
-			attacking = true;
+			
         }
 		Checkexp();
         if (inv)
@@ -184,7 +184,11 @@ public class Player : MonoBehaviour,ObjInterface
 		if (!mOb.ani.GetBool("Die"))
 		{
 			JumpProcess(om);
-		}
+        }
+        else
+        {
+			attacking = true;
+        }
 
 		if (mFloor!=null&&!inv)
         {

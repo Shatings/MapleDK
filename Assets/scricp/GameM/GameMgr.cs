@@ -46,14 +46,15 @@ public class GameMgr : MonoBehaviour
             //Debug.Log("아이디이다" + test.DataBaseRead("SELECT * FROM Score"));
             Debug.Log("엄준식식Insert Into ScoreDB(Name, Score, ID) VALUES" + "(" + "\"" + Player.gType + "\"," + score + "," + test.id + ")");
 
-            test.DataBaseInsert("Insert Into ScoreDB(Name, Score,ID) VALUES" + "(" + "\"" + Player.gType + "\"," + score+"," + test.id + ")");
+            test.DataBaseInsert("Insert Into ScoreDB(Name, Score,ID) VALUES" + "(" + "\"" + Player.gType + "\"," + score + "," + test.id + ")");
             test.DataBaseRead(test.secet);
             test.Test();
             test.DataUpdate();
             test.DBRank();
+        }
 
             
-        }
+        
     }
     void Start()
     {

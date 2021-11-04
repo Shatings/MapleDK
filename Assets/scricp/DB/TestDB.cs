@@ -16,7 +16,7 @@ public class TestDB : MonoBehaviour
     public string secet= "SELECT * FROM ScoreDB ORDER By Score DESC LIMIT 10;";
     public string Insert = "Insert Into ScoreDB(Name,Score) VALUES";
     public string udate=null;
-    private string Dbpath = "/ScoreDBT.db";
+    private string Dbpath = "/Resources/ScoreDBT.db";
     public string delect = "Delect From ScoreDB Where ID>10";
     [SerializeField]
     private List<String> Pname = new List<string>();
@@ -24,6 +24,8 @@ public class TestDB : MonoBehaviour
     private List<int> score = new List<int>();
     [SerializeField]
     private List<int> DbID = new List<int>();
+
+    public Text testtext;
     
     public int id = 0;
     [SerializeField]
@@ -75,11 +77,13 @@ public class TestDB : MonoBehaviour
         Debug.LogError("버그망겜");
         if (!File.Exists(filepath))
         {
+            
             File.Copy(Application.streamingAssetsPath + Dbpath, filepath);
            
         }
         Debug.Log("성공?" + (Application.streamingAssetsPath + Dbpath, filepath));
-        yield return null;
+        
+         yield return null;
     }
     public string GetDBFilePath()
     {
@@ -101,9 +105,11 @@ public class TestDB : MonoBehaviour
             {
                 Debug.Log("실패");
             }
+            text.text += "\n실패";
         }
         catch(Exception e)
         {
+            text.text += "\n"+e;
             Debug.Log(e);
         }
     }
@@ -119,6 +125,7 @@ public class TestDB : MonoBehaviour
         {
 
             Debug.Log(dataReader.GetInt32(0) + "," + dataReader.GetString(1) + "," + dataReader.GetInt32(2));
+            testtext.text += "\n" + dataReader.GetInt32(0) + "," + dataReader.GetString(1) + "," + dataReader.GetInt32(2);
             DbID.Add(dataReader.GetInt32(3));
             score.Add(dataReader.GetInt32(2));
             Pname.Add(dataReader.GetString(1));
@@ -141,7 +148,7 @@ public class TestDB : MonoBehaviour
         Pname.Clear();
         id = 1;
     }
-    public void DataBaseInsert(string que)
+    public string DataBaseInsert(string que)
     {
         IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
         dbConnection.Open();
@@ -152,6 +159,7 @@ public class TestDB : MonoBehaviour
         dbCommand = null;
         dbConnection.Close();
         dbConnection = null;
+        return que;
     }
     public void DataUpdate()
     {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item3
   m_EditorClassIdentifier: Assembly-CSharp::item
   itemName: TextItem3
-  itemImage: {fileID: 21300000, guid: 0637dcecd71b6e346bad062462e96f13, type: 3}
+  itemImage: {fileID: 21300000, guid: 71cb59b75bf5db044a50b0c717fa86c4, type: 3}
   id: 3
   startpos: 0
   successRate: 95

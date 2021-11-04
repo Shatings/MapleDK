@@ -97,23 +97,29 @@ public class ObjBase
         }
         if (tarob.curhp <= 0)
         {
-            if (tarob.mType == Emy1.gType|| tarob.mType == Emy2.gType||tarob.mType==Emy3.gType||tarob.mType == Emy4.gType)
+            try
             {
-                PlusExp(tarob);
-                tarob.die = true;
-                Object.FindObjectOfType<Player>().dead++;
-                Object.FindObjectOfType<GameMgr>().ScoreM(tarob.point);
+                if (tarob.mType == Emy1.gType || tarob.mType == Emy2.gType || tarob.mType == Emy3.gType || tarob.mType == Emy4.gType)
+                {
+                    PlusExp(tarob);
+                    tarob.die = true;
+                    Object.FindObjectOfType<Player>().dead++;
+                    Object.FindObjectOfType<GameMgr>().ScoreM(tarob.point);
 
 
+                }
+                Debug.Log(tarob.mType + " Dead");
+                tarob.ani.SetBool("Die", true);
+              
+
+
+                GameObject.Find("Canvas").transform.Find("Scroll View").transform.Find("Viewport").GetComponent<Invetory>().AddItem(GameObject.Find("GameMgr").GetComponent<GameMgr>().Radndom());
+                Gv.gThis.mOm.Remove(tarob);
             }
-             Debug.Log(tarob.mType+" Dead");
-             tarob.ani.SetBool("Die", true);
-
-
-
-            GameObject.Find("Canvas").transform.Find("Scroll View").transform.Find("Viewport").GetComponent<Invetory>().AddItem(GameObject.Find("GameMgr").GetComponent<GameMgr>().Radndom());
-            Gv.gThis.mOm.Remove(tarob);
-
+            catch(System.Exception e)
+            {
+                Debug.Log(e);
+            }
 
         }
     }
