@@ -37,6 +37,8 @@ public class GameMgr : MonoBehaviour
     [SerializeField]
     private float realTime;
 
+    public GameObject ese;
+
     public void CheckHp()
     {
         if (player.mOb.curhp <= 0 && !checkDb)
@@ -44,12 +46,12 @@ public class GameMgr : MonoBehaviour
             checkDb = true;
             TestDB test = FindObjectOfType<TestDB>();
             //Debug.Log("아이디이다" + test.DataBaseRead("SELECT * FROM Score"));
-            Debug.Log("엄준식식Insert Into ScoreDB(Name, Score, ID) VALUES" + "(" + "\"" + Player.gType + "\"," + score + "," + test.id + ")");
-
             test.DataBaseInsert("Insert Into ScoreDB(Name, Score,ID) VALUES" + "(" + "\"" + Player.gType + "\"," + score + "," + test.id + ")");
+            test.DataBaseInsert(test.delect);
+            test.Test();
             test.DataBaseRead(test.secet);
             test.Test();
-            test.DataUpdate();
+            
             test.DBRank();
         }
 
@@ -84,12 +86,20 @@ public class GameMgr : MonoBehaviour
         
         return item ;
     }
+    public void ESE()
+    {
+        ese.SetActive((ese.activeSelf ? false : true));
+    }
     // Update is called once per frame
     void Update()
     {
         
         Om om = Gv.gThis.mOm;
         realTime += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ESE();
+        }
         switch (mGameState)
         {
             case  0: //Start
@@ -113,31 +123,36 @@ public class GameMgr : MonoBehaviour
                     resoformtime[i] += Time.deltaTime;
                     if (resoformtime[i] > checkretime[i])
                     {
-                       
+                        if (checkretime[i] >= lastretime[i])
+                        {
+                            checkretime[i] -=2f;
+                        }
+                        
+                           
                         switch (i)
                         {
                             case 0:
                                 maxemy = 1;
                                 LoadOb(ems[i], maxemy,i);
-                                checkretime[i] = 2f;
+                               
                                 break;
                             case 1:
                                maxemy = 1;
                                LoadOb(ems[i], maxemy,i);
-                                checkretime[i] = 2f;
+                               
                                 break;
                             case 2:
                                 maxemy = 1;
                                 LoadOb(ems[i], maxemy,i);
-                                checkretime[i] = 5f;
+                               
                                
                                 break;
                             case 3:
                                 maxemy = 1;
                                 LoadOb(ems[i], maxemy,i);
-                                checkretime[i] = 5f;
+                              
 
-                                break;
+                                break;   
                             default:
                                 Debug.Log("엄준식엄준식 신나는노래");
                                 break;
@@ -145,10 +160,8 @@ public class GameMgr : MonoBehaviour
                         }
                         
                         resoformtime[i] = 0;
-                        if (checkretime[i] <= lastretime[i])
-                        {
-                            return;
-                        }
+                        
+
 
                         
 

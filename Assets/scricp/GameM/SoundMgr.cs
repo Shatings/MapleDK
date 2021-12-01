@@ -16,15 +16,25 @@ public class SoundMgr : MonoBehaviour
     {
         if (instance == null)
         {
-            BgmSPlay(0);
+            BgmSPlay(1);
             instance = this;
             DontDestroyOnLoad(instance);
-            //SceneManager.sceneLoaded += OnSceanL;
+            SceneManager.sceneLoaded += OnSceanL;
           
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+    private void OnSceanL(Scene arg0, LoadSceneMode arg1)
+    {
+        for (int i = 0; i < bgso.Count; i++)
+        {
+            if (arg0.name == bgso[i].name)
+            {
+                BgmSPlay(i);
+            }
         }
     }
     public void soundPlay(int id,string soundName)

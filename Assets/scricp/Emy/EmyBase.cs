@@ -36,13 +36,14 @@ public class EmyBase //: //ObjBase
     }
     public void Move(List<ObjBase> play, Vector3 targetPos, Vector3 targetRad,Transform oldpos,ObjBase mOb)
     {
-        AttackCheck(mOb, oldpos);
-        Debug.Log(mOb.mType);
-        oldpos.localScale = (targetPos.x > oldpos.position.x) ? new Vector3(-1, oldpos.localScale.y, oldpos.localScale.z) : new Vector3(1, oldpos.localScale.y, oldpos.localScale.z);
-        if (mOb.Aps !=0)
+        if (mOb.Aps != 0)
         {
             return;
         }
+        AttackCheck(mOb, oldpos);
+        Debug.Log(mOb.mType);
+        oldpos.localScale = (targetPos.x > oldpos.position.x) ? new Vector3(-1, oldpos.localScale.y, oldpos.localScale.z) : new Vector3(1, oldpos.localScale.y, oldpos.localScale.z);
+       
         switch (mOb.mType)
         {
            
@@ -67,8 +68,8 @@ public class EmyBase //: //ObjBase
             case "Enemy2":
                 if (Mathf.Abs(targetPos.x - oldPos.x) > targetRad.x&&!mOb.ani.GetBool("Attack"))
                 {
-
                     
+
                     oldpos.position = new Vector3(oldpos.position.x + ((targetPos.x > oldpos.position.x) ? +Time.deltaTime : -Time.deltaTime) * mOb.speed, oldpos.position.y, 0);
 
                     mOb.ani.SetBool("Move", true);
@@ -88,7 +89,7 @@ public class EmyBase //: //ObjBase
     {
         return Time.deltaTime;
     }
-    public void APS(ObjBase mOb)
+    public void APS(ObjBase mOb,Transform transform)
     {
         mOb.Aps += Time.deltaTime;
 
@@ -98,6 +99,7 @@ public class EmyBase //: //ObjBase
             case "Enemy2":
                 if (mOb.Aps > 1)
                 {
+                    transform.localScale = new Vector3(1, 1, 1);
                     mOb.Aps = 0;
                     attack = false;
                 }

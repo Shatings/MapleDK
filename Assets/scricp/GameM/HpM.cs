@@ -20,9 +20,13 @@ public class HpM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkHP();
+        
+    }
+    void checkHP()
+    {
         hp = player.mOb.curhp;
         hpImage.fillAmount = hp / player.mOb.maxhp;
         hpText.text = string.Format("Hp:{0}/{1}", hp, player.mOb.maxhp);
-        
     }
 }

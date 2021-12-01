@@ -15,23 +15,28 @@ public class TestDB : MonoBehaviour
 {
     public string secet= "SELECT * FROM ScoreDB ORDER By Score DESC LIMIT 10;";
     public string Insert = "Insert Into ScoreDB(Name,Score) VALUES";
-    public string udate=null;
+   
     private string Dbpath = "/Resources/ScoreDBT.db";
-    public string delect = "Delect From ScoreDB Where ID>10";
+    public string delect = "DELETE FROM ScoreDB where Score in (select Score from(SELECT* FROM ScoreDB ORDER By Score ASC LIMIT (11-10)))";
     [SerializeField]
     private List<String> Pname = new List<string>();
     [SerializeField]
     private List<int> score = new List<int>();
     [SerializeField]
     private List<int> DbID = new List<int>();
-
-    public Text testtext;
-    
+    [SerializeField]
+    private GameObject scrol;
+    [SerializeField]
+    private List<Text> PnameT = new List<Text>();
+    [SerializeField]
+    private List<Text> scoreT = new List<Text>();
+    [SerializeField]
+    private List<Text> DbIdT = new List<Text>();
     public int id = 0;
-    [SerializeField]
-    private Image image;
-    [SerializeField]
-    private Text text;
+    IDbConnection dbConnection;
+
+
+    IDbCommand dbCommand;
     public void Test()
     {
         for(int i = 0; i < score.Count; i++)
@@ -43,6 +48,7 @@ public class TestDB : MonoBehaviour
     void Start()
     {
         DBconnetionCheck();
+       
         DataBaseRead("SELECT * FROM ScoreDB ORDER By Score DESC");
 
     }
@@ -55,14 +61,17 @@ public class TestDB : MonoBehaviour
     }
     public void DBRank()
     {
-        image.gameObject.SetActive(true);
-        text.text = null;
-        for(int i = 0; i < id; i++)
-        {
-            text.text +=(i+1)+"등 이름:" + Pname[i] + "점수:" + score[i]+"\n";
-        }
-        DataBaseRead(secet);
-        
+       
+            scrol.SetActive((scrol.activeSelf ? false : true));
+
+            for (int i = 0; i < id-1; i++)
+            {
+                DbIdT[i].text = (i + 1) + "등";
+                PnameT[i].text = "이름:" + Pname[i];
+                scoreT[i].text = "점수:" + score[i];
+            }
+            DataBaseRead(secet);
+       
     }
 
     // Update is called once per frame
@@ -105,27 +114,25 @@ public class TestDB : MonoBehaviour
             {
                 Debug.Log("실패");
             }
-            text.text += "\n실패";
+          
         }
         catch(Exception e)
         {
-            text.text += "\n"+e;
+           
             Debug.Log(e);
         }
     }
     public int DataBaseRead(string que)
     {
         ClearList();
-        IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
-        dbConnection.Open();
-        IDbCommand dbCommand = dbConnection.CreateCommand();
+        DataBaseStart();
         dbCommand.CommandText = que;
         IDataReader dataReader = dbCommand.ExecuteReader();
         while (dataReader.Read())
         {
 
             Debug.Log(dataReader.GetInt32(0) + "," + dataReader.GetString(1) + "," + dataReader.GetInt32(2));
-            testtext.text += "\n" + dataReader.GetInt32(0) + "," + dataReader.GetString(1) + "," + dataReader.GetInt32(2);
+          
             DbID.Add(dataReader.GetInt32(3));
             score.Add(dataReader.GetInt32(2));
             Pname.Add(dataReader.GetString(1));
@@ -134,10 +141,7 @@ public class TestDB : MonoBehaviour
         }
         dataReader.Dispose();
         dataReader = null;
-        dbCommand.Dispose();
-        dbCommand = null;
-        dbConnection.Close();
-        dbConnection = null;
+        CloseDB();
         return id;
 
     }
@@ -148,46 +152,32 @@ public class TestDB : MonoBehaviour
         Pname.Clear();
         id = 1;
     }
+    public void ClearListT()
+    {
+        for(int i = 0; i < DbIdT.Count; i++)
+        {
+            DbIdT[i].text = null;
+            scoreT[i].text = null;
+            PnameT[i].text = null;
+        }
+    }
     public string DataBaseInsert(string que)
     {
-        IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
-        dbConnection.Open();
-        IDbCommand dbCommand = dbConnection.CreateCommand();
+        DataBaseStart();
         dbCommand.CommandText = que;
         dbCommand.ExecuteNonQuery();
-        dbCommand.Dispose();
-        dbCommand = null;
-        dbConnection.Close();
-        dbConnection = null;
+        CloseDB();
         return que;
     }
-    public void DataUpdate()
+   
+    public void DataBaseStart()
     {
-        IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
+        dbConnection = new SqliteConnection(GetDBFilePath());
         dbConnection.Open();
-        IDbCommand dbCommand = dbConnection.CreateCommand();
-        for(int i = 1; i < id; i++)
-        {
-
-            udate = "UPDATE ScoreDB SET Name = \"" + Pname[i-1] + "\",Score = "+score[i-1]+","+"ID="+i+" WHERE ID ="+i;
-            Debug.Log("엄"+ udate);
-            dbCommand.CommandText = udate;
-            dbCommand.ExecuteNonQuery();
-        }
-        dbCommand.Dispose();
-        dbCommand = null;
-        dbConnection.Close();
-        dbConnection = null;
-        DateBaseDelect(delect);
+        dbCommand = dbConnection.CreateCommand();
     }
-    public void DateBaseDelect(string que)
+    public void CloseDB()
     {
-        Debug.Log("히히"+que);
-        IDbConnection dbConnection = new SqliteConnection(GetDBFilePath());
-        dbConnection.Open();
-        IDbCommand dbCommand = dbConnection.CreateCommand();
-        dbCommand.CommandText = que;
-        dbCommand.ExecuteNonQuery();
         dbCommand.Dispose();
         dbCommand = null;
         dbConnection.Close();

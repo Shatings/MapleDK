@@ -25,8 +25,12 @@ public class ExpM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkSc();
+    }
+    void checkSc()
+    {
         score.text = "점수:" + Object.FindObjectOfType<GameMgr>().ScoreT().ToString();
-        levelT.text = "레벨:"+player.level.ToString();
+        levelT.text = "레벨:" + player.level.ToString();
         exp = player.curexp;
         expImage.fillAmount = exp / player.maxexp;
         expText.text = string.Format("Exp:{0}/{1}", exp, player.maxexp);

@@ -42,6 +42,9 @@ public class Player : MonoBehaviour,ObjInterface
 	[SerializeField]
 	public ObjBase mFloor = null;
 	public bool checkDb = false;
+	public bool check2f = false;
+	public GameObject rightwall;
+	public GameObject leftwall;
 	
 
 
@@ -171,16 +174,20 @@ public class Player : MonoBehaviour,ObjInterface
 			}
 			
         }
-		
-	  
+		if (rightwall.transform.position.x < transform.position.x || leftwall.transform.position.x > transform.position.x)
+		{
+			this.transform.position = new Vector3((mOb.righ == "Right") ? rightwall.transform.position.x - 0.2f : leftwall.transform.position.x + 0.2f, oldPos.y);
+		}
+
+
 		//Debug.Log("" + HitboxR.transform.position);
 
-		
-        if (Input.GetKeyDown(KeyCode.R))
+
+		if (Input.GetKeyDown(KeyCode.R))
         {
 			Skill1();
         }
-
+		Move();
 		if (!mOb.ani.GetBool("Die"))
 		{
 			JumpProcess(om);
@@ -190,11 +197,11 @@ public class Player : MonoBehaviour,ObjInterface
 			attacking = true;
         }
 
-		if (mFloor!=null&&!inv)
+		if (mFloor!=null&&!check2f)
         {
 			mOb.ani.SetBool("Hit", true);
-			mOb.curhp -= 100;
-			inv = true;
+			mOb.curhp -= 0.5f;
+			check2f = true;
         }
 		
 		
@@ -397,7 +404,7 @@ public class Player : MonoBehaviour,ObjInterface
 			debufftime = 0;
 		}
 		
-			Move();
+		
 
 
 		
@@ -439,8 +446,12 @@ public class Player : MonoBehaviour,ObjInterface
 		{
 			vector = (Input.GetAxisRaw("Horizontal") > 0) ? Vector3.right : Vector3.left;
 			mOb.righ = (Input.GetAxisRaw("Horizontal") > 0) ? "Right" : "Left";
-			this.transform.localScale=(Input.GetAxisRaw("Horizontal") > 0)?new Vector3(-1,this.transform.localScale.y,this.transform.localScale.z):new Vector3(1, this.transform.localScale.y, this.transform.localScale.z);
-			transform.position += vector * mOb.speed * Time.deltaTime;
+			this.transform.localScale = (Input.GetAxisRaw("Horizontal") > 0) ? new Vector3(-1, this.transform.localScale.y, this.transform.localScale.z) : new Vector3(1, this.transform.localScale.y, this.transform.localScale.z);
+			
+			
+				transform.position += vector * mOb.speed * Time.deltaTime;
+			
+			
 			mOb.ani.SetBool("Walking", true);
 		}
         else

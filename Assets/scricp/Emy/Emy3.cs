@@ -69,7 +69,7 @@ public class Emy3 : MonoBehaviour, ObjInterface
     {
         if (emy.attack)
         {
-            emy.APS(mOb);
+            emy.APS(mOb,transform);
         }
     }
 

@@ -70,7 +70,7 @@ public class Emy2 : MonoBehaviour, ObjInterface
     {
         if (emy.attack)
         {
-            emy.APS(mOb);
+            emy.APS(mOb,transform);
         }
     }
 
@@ -81,6 +81,7 @@ public class Emy2 : MonoBehaviour, ObjInterface
     private void Attack()
     {
         emy.Attack(mOb, this.gameObject);
+        transform.localScale = new Vector3(1, 0.5f, 1);
         emy.attack = true;
 
     }

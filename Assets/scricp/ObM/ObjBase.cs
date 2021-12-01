@@ -17,8 +17,8 @@ public class ObjBase
     public GameObject Hitbox;
     public GameObject HitboxSkill;
     public string righ;
-    public int maxhp = 100;
-    public int curhp = 100;
+    public float maxhp = 100;
+    public float curhp = 100;
     public int attackp = 50;
     public float speed = 5f;
     public float attacktime;
@@ -125,6 +125,7 @@ public class ObjBase
     }
     public void Die(GameObject _gameObject)
     {
+       
         GameObject.Destroy(_gameObject);
     }
     public void AttackEnd(ObjBase mOb)
